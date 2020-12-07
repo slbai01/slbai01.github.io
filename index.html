@@ -88,6 +88,63 @@ if (isWX) {
     <div class="outer">
       <section id="main">
   
+    <article id="post-LSF作业管理系统提交job-array" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2020/12/07/LSF%E4%BD%9C%E4%B8%9A%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E6%8F%90%E4%BA%A4job-array/" class="article-date">
+  <time datetime="2020-12-07T02:02:30.000Z" itemprop="datePublished">2020-12-07</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/07/LSF%E4%BD%9C%E4%B8%9A%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E6%8F%90%E4%BA%A4job-array/">LSF作业管理系统提交job array</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <p>以 jobarray 方式提交任务便于进行任务管理，核心是利用<code>LSB_JOBINDEX</code>，比如<code>canu</code>大量使用了job array进行任务提交：</p>
+<ol>
+<li>减少作业管理系统调度工作</li>
+<li>方便后续任务依赖</li>
+<li>设置略微复杂，但可以接受</li>
+</ol>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Example1</span></span><br><span class="line">for x in `seq 1 7`; do # 按染色体去冗余</span><br><span class="line">    echo &quot;grep \&quot;^chr$&#123;x&#125;D\&quot; *tsv | cut -d &#x27;:&#x27; -f 2 | sort -k2n | uniq &gt; merge.chr$&#123;x&#125;D_depth0.tsv&quot;</span><br><span class="line">done &gt; redup.sh</span><br><span class="line">bsub -J &quot;testjob[1-7]&quot; -q rock -n 1 -R &quot;span[hosts=1]&quot; &quot;awk -v jindex=\$LSB_JOBINDEX &#x27;NR==jindex&#x27; redup.sh | bash&quot;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Example2</span></span><br><span class="line">module load BamDeal/0.24</span><br><span class="line">bsubt &quot;mkdir split_bam; BamDeal modify bamSplit -l round1.fofn -o split_bam;&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 更改输入文件格式为数字</span></span><br><span class="line">jobid=0</span><br><span class="line">for x in `ls split_bam/*`; do</span><br><span class="line">  jobid=$(($jobid+1))</span><br><span class="line">  echo -e &quot;$jobid\t $x&quot; &gt;&gt; split_bam/correspond.txt</span><br><span class="line">  mv $x split_bam/$jobid.bam</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">bsubt -J &quot;index[1-$jobid]&quot; pbindex split_bam/\$&#123;LSB_JOBINDEX&#125;.bam</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://scicomp.ethz.ch/wiki/Job_arrays">ref_link1</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LSF/" rel="tag">LSF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BD%9C%E4%B8%9A%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">作业管理系统</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%99%E7%A8%8B/" rel="tag">教程</a></li></ul>
+
+        <a data-url="http://example.com/2020/12/07/LSF%E4%BD%9C%E4%B8%9A%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E6%8F%90%E4%BA%A4job-array/" data-id="ckidx2tah0000m9eohkos8fyk" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-MacOS-GitHub-Hexo-搭建个人网站" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <h3 href="/2020/12/05/MacOS-GitHub-Hexo-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99/" class="article-date">
@@ -236,6 +293,10 @@ if (isWX) {
       <ul>
         
           <li>
+            <a href="/2020/12/07/LSF%E4%BD%9C%E4%B8%9A%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E6%8F%90%E4%BA%A4job-array/">LSF作业管理系统提交job array</a>
+          </li>
+        
+          <li>
             <a href="/2020/12/05/MacOS-GitHub-Hexo-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99/">MacOS GitHub+Hexo 搭建个人网站</a>
           </li>
         
@@ -252,7 +313,7 @@ if (isWX) {
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag">博客搭建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/" rel="tag">软件安装</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSF/" rel="tag">LSF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%9C%E4%B8%9A%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="tag">作业管理系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag">博客搭建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%99%E7%A8%8B/" rel="tag">教程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/" rel="tag">软件安装</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -261,7 +322,7 @@ if (isWX) {
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
