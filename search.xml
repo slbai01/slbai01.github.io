@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>LSF作业管理系统提交job array</title>
+    <url>/2020/12/07/LSF-job-array/</url>
+    <content><![CDATA[<p>以 jobarray 方式提交任务便于进行任务管理，核心是利用<code>LSB_JOBINDEX</code>，比如<code>canu</code>大量使用了job array进行任务提交：</p>
+<ol>
+<li>减少作业管理系统调度工作</li>
+<li>方便后续任务依赖</li>
+<li>设置略微复杂，但可以接受</li>
+</ol>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><a id="more"></a>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Example1</span></span><br><span class="line">for x in `seq 1 7`; do # 按染色体去冗余</span><br><span class="line">    echo &quot;grep \&quot;^chr$&#123;x&#125;D\&quot; *tsv | cut -d &#x27;:&#x27; -f 2 | sort -k2n | uniq &gt; merge.chr$&#123;x&#125;D_depth0.tsv&quot;</span><br><span class="line">done &gt; redup.sh</span><br><span class="line">bsub -J &quot;testjob[1-7]&quot; -q rock -n 1 -R &quot;span[hosts=1]&quot; &quot;awk -v jindex=\$LSB_JOBINDEX &#x27;NR==jindex&#x27; redup.sh | bash&quot;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Example2</span></span><br><span class="line">module load BamDeal/0.24</span><br><span class="line">bsubt &quot;mkdir split_bam; BamDeal modify bamSplit -l round1.fofn -o split_bam;&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 更改输入文件格式为数字</span></span><br><span class="line">jobid=0</span><br><span class="line">for x in `ls split_bam/*`; do</span><br><span class="line">  jobid=$(($jobid+1))</span><br><span class="line">  echo -e &quot;$jobid\t $x&quot; &gt;&gt; split_bam/correspond.txt</span><br><span class="line">  mv $x split_bam/$jobid.bam</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">bsubt -J &quot;index[1-$jobid]&quot; pbindex split_bam/\$&#123;LSB_JOBINDEX&#125;.bam</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><blockquote>
+<p><a href="https://scicomp.ethz.ch/wiki/Job_arrays">ref_link1</a></p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>教程</tag>
+        <tag>作业管理系统</tag>
+        <tag>LSF</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MacOS GitHub+Hexo 搭建个人网站</title>
     <url>/2020/12/05/MacOS-GitHub-Hexo-build-self-blog/</url>
     <content><![CDATA[<h2 id="1-Quick-publish-blog"><a href="#1-Quick-publish-blog" class="headerlink" title="1. Quick publish blog"></a>1. Quick publish blog</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo new &quot;postName&quot; #新建文章</span><br><span class="line">hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
@@ -42,29 +65,6 @@
       <tags>
         <tag>博客搭建</tag>
         <tag>软件安装</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>LSF作业管理系统提交job array</title>
-    <url>/2020/12/07/LSF-job-array/</url>
-    <content><![CDATA[<p>以 jobarray 方式提交任务便于进行任务管理，核心是利用<code>LSB_JOBINDEX</code>，比如<code>canu</code>大量使用了job array进行任务提交：</p>
-<ol>
-<li>减少作业管理系统调度工作</li>
-<li>方便后续任务依赖</li>
-<li>设置略微复杂，但可以接受</li>
-</ol>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><a id="more"></a>
-
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Example1</span></span><br><span class="line">for x in `seq 1 7`; do # 按染色体去冗余</span><br><span class="line">    echo &quot;grep \&quot;^chr$&#123;x&#125;D\&quot; *tsv | cut -d &#x27;:&#x27; -f 2 | sort -k2n | uniq &gt; merge.chr$&#123;x&#125;D_depth0.tsv&quot;</span><br><span class="line">done &gt; redup.sh</span><br><span class="line">bsub -J &quot;testjob[1-7]&quot; -q rock -n 1 -R &quot;span[hosts=1]&quot; &quot;awk -v jindex=\$LSB_JOBINDEX &#x27;NR==jindex&#x27; redup.sh | bash&quot;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Example2</span></span><br><span class="line">module load BamDeal/0.24</span><br><span class="line">bsubt &quot;mkdir split_bam; BamDeal modify bamSplit -l round1.fofn -o split_bam;&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 更改输入文件格式为数字</span></span><br><span class="line">jobid=0</span><br><span class="line">for x in `ls split_bam/*`; do</span><br><span class="line">  jobid=$(($jobid+1))</span><br><span class="line">  echo -e &quot;$jobid\t $x&quot; &gt;&gt; split_bam/correspond.txt</span><br><span class="line">  mv $x split_bam/$jobid.bam</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">bsubt -J &quot;index[1-$jobid]&quot; pbindex split_bam/\$&#123;LSB_JOBINDEX&#125;.bam</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><blockquote>
-<p><a href="https://scicomp.ethz.ch/wiki/Job_arrays">ref_link1</a></p>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>教程</tag>
-        <tag>作业管理系统</tag>
-        <tag>LSF</tag>
       </tags>
   </entry>
   <entry>
@@ -149,8 +149,8 @@
 <p>这样子就表明成功上传啦，每次更新博文并deploy到服务器上之后，备份就自动启动并完成备份啦~</p>
 ]]></content>
       <tags>
-        <tag>博客搭建</tag>
         <tag>教程</tag>
+        <tag>博客搭建</tag>
       </tags>
   </entry>
   <entry>
