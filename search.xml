@@ -279,4 +279,62 @@
         <tag>基因注释</tag>
       </tags>
   </entry>
+  <entry>
+    <title>PicGo + GitHub 搭建个人图床工具</title>
+    <url>/2021/01/13/picture-storage/</url>
+    <content><![CDATA[<p>参考 <a href="https://picgo.github.io/PicGo-Doc/zh/guide/config.html#github%E5%9B%BE%E5%BA%8A">官方教程文档</a> 即可，含有中文教程。</p>
+<a id="more"></a>
+]]></content>
+      <tags>
+        <tag>教程</tag>
+        <tag>博客搭建</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>终端复用工具tmux使用方法</title>
+    <url>/2021/01/13/tmux-usage/</url>
+    <content><![CDATA[<h2 id="tmux及其特征"><a href="#tmux及其特征" class="headerlink" title="tmux及其特征"></a>tmux及其特征</h2><ul>
+<li>tmux 是终端复用，在一个命令行窗口中不仅可以显示多个Shell的内容，而且可以保持多个互不干扰的会话;</li>
+<li>tmux 是linux中一种管理窗口的程序，它提供了一个Session随时存储和恢复的功能。</li>
+</ul>
+<h2 id="tmux-典型适用场景"><a href="#tmux-典型适用场景" class="headerlink" title="tmux 典型适用场景"></a>tmux 典型适用场景</h2><ol>
+<li>通过在<code>tmux</code>中运行远程服务器上的程序，防止它们掉线。<ul>
+<li>执行耗时较久的任务，<code>tmux</code>不退出则任务也不会退出。 该方法可以在一定程度上替代<code>nohup commond &amp;</code>；</li>
+<li>关闭终端，再次打开时原终端里面的任务进程依然不会中断，终端内标准输入及标准输出信息仍会保留；</li>
+<li>tmux可以保留窗口内所有信息，比如常规情况下<code>nohup</code>提交任务退出终端重新进入后，<code>jobs</code>不会显示已提交任务，通过<code>tmux</code>终端复用避免该问题；</li>
+</ul>
+</li>
+<li>允许从多台不同的本地计算机访问远程服务器上运行的程序。<ul>
+<li>演示命令输入及输出。一个<code>seccssion</code>可以在多台电脑/多个终端同时登录，不同终端内显示的信息会实时同步。</li>
+</ul>
+</li>
+<li>在一个终端中一起使用多个程序和Shell，类似窗口管理器。<a id="more"></a>
+
+</li>
+</ol>
+<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><p><code>conda install tmux</code></p>
+<h2 id="tmux-窗口架构"><a href="#tmux-窗口架构" class="headerlink" title="tmux 窗口架构"></a>tmux 窗口架构</h2><p>tmux 中有三个重要概念：</p>
+<ul>
+<li>会话(session): 建立一个 tmux 工作区会话，会话可以长期驻留，重新连接服务器不会丢失，我们只需重新 tmux attach 到之前的工作区就可以恢复会话</li>
+<li>窗口(window): 容纳多个窗格</li>
+<li>窗格(pane): 可以在窗口中分成多个窗格</li>
+</ul>
+<p>session为工作区，window相当于你的显示器能看到的所有东西，一个window上可以分成一块块的拼图，也就是各个panes。<br><img src="https://raw.githubusercontent.com/slbai01/picture/main/img/tmux-session-windows-pan-explain.jpg" alt="会话-窗口-窗格间的关系， reference (https://mikolaje.github.io/2019/tmux_guide.html)"></p>
+<p>tmux实际工作界面展示：<br><img src="https://raw.githubusercontent.com/slbai01/picture/main/img/tmux-pane-diagram.png" alt="tmux工作界面"></p>
+<p>tmux状态栏详解：<br><img src="https://raw.githubusercontent.com/slbai01/picture/main/img/tmux-status-line-diagram.png" alt="tmux状态栏详解"></p>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建一个新的session</span></span><br><span class="line">tmux new -s &lt;name-of-my-session&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 进入名为<span class="built_in">test</span>的session</span></span><br><span class="line">tmux attach -t test</span><br><span class="line"><span class="meta">#</span><span class="bash"> 列出所有 sessions</span></span><br><span class="line">tmux ls</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 断开连接</span></span><br><span class="line">ctrl+b d</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 窗口相关操作</span></span><br><span class="line">ctrl+b c   # 新建窗口</span><br><span class="line">ctrl+b ,   # 窗口重命名</span><br><span class="line">ctrl+b 0~9 # 切换到指定窗口，鼠标直接点选也可以</span><br><span class="line">ctrl+b &#x27;10 # 切换到10以后的窗口 &#x27;</span><br><span class="line">ctrl+b w   # 列出所有窗口</span><br><span class="line">ctrl+b n   # 后一个窗口</span><br><span class="line">ctrl+b p   # 前一个窗口</span><br><span class="line">ctrl+b f   # 查找窗口</span><br><span class="line">ctrl+b &amp;   # 关闭当前窗口</span><br><span class="line">ctrl+b s   # 保存工作环境，适用于 continuum 插件</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 面板操作</span></span><br><span class="line">ctrl+b &quot; # 将当前面板上下分屏&quot;</span><br><span class="line">ctrl+b % # 将当前面板左右分屏</span><br><span class="line">ctrl+b x # 关闭当前分屏</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看终端输出被覆盖的内容</span></span><br><span class="line">ctrl+b [  进入copy模式，可使用 上下键 翻动</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Tmux-配置及常用插件"><a href="#Tmux-配置及常用插件" class="headerlink" title="Tmux 配置及常用插件"></a>Tmux 配置及常用插件</h2><p>编辑文件 <code>~/.tmux.conf</code> 进行插件配置</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">set -g mouse on # 启用鼠标功能。滚动查看，复制等</span><br><span class="line">set -g @continuum-restore &#x27;on&#x27; # 启用自动恢复</span><br><span class="line">set -g @continuum-save-interval &#x27;1440&#x27; # save times. 1day</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> List of plugins</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> resurect &amp; continuum 会话定时保存</span></span><br><span class="line">set -g @plugin &#x27;tmux-plugins/tpm&#x27;</span><br><span class="line">set -g @plugin &#x27;tmux-plugins/tmux-sensible&#x27;</span><br><span class="line">set -g @plugin &#x27;tmux-plugins/tmux-resurrect&#x27;</span><br><span class="line">set -g @plugin &#x27;tmux-plugins/tmux-continuum&#x27;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)</span></span><br><span class="line">run &#x27;~/.tmux/plugins/tpm/tpm&#x27;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://github.com/tmux/tmux/wiki/Getting-Started">tmux-Getting-Started</a><br><a href="https://mikolaje.github.io/2019/tmux_guide.html">mikolaje-tmux-guide</a></p>
+]]></content>
+      <categories>
+        <category>Linux基础</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+        <tag>Linux基础</tag>
+      </tags>
+  </entry>
 </search>
