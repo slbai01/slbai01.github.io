@@ -337,4 +337,39 @@
         <tag>Linux基础</tag>
       </tags>
   </entry>
+  <entry>
+    <title>mapman使用简介</title>
+    <url>/2021/01/22/mapman-usage/</url>
+    <content><![CDATA[<p>本教程主要针对植物。</p>
+<p>MapMan是专门为植物开发的，其设计目标是促进植物通路（光学合作，激素代谢，生物胁迫等）的组学数据可视化。<br>MapMan 与 GO，KEGG 等类似，提供基因所属的通路信息。 MapMan 对植物研究者更加友好。</p>
+<a id="more"></a>
+
+<p><a href="https://www.plabipd.de/portal/mercator4">Mercator4</a>: MapMan注释套件，为所有胚胎植物提供相对高质量的蛋白质注释。该程序为web服务，<em>速度非常快</em>，注释3-4万个基因仅需约 20min。</p>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><h3 id="MapMan-下载"><a href="#MapMan-下载" class="headerlink" title="MapMan 下载"></a>MapMan 下载</h3><p>下载前需注册账号，然后在 <a href="https://mapman.gabipd.org/mapman">下载地址</a> 选取对应系统版本应用程序进行下载安装。<br>针对<code>MacOS</code>系统，选取<code>lib</code>文件夹下<code>MapMan_3.6.0RC1.jar</code>双击打开即可。</p>
+<h3 id="Mercator4-注释"><a href="#Mercator4-注释" class="headerlink" title="Mercator4 注释"></a>Mercator4 注释</h3><p>选取<strong>最长转录本</strong>提交到 <a href="https://www.plabipd.de/portal/mercator4">web服务</a> 中，约20min后即可获得注释结果。如果有不符合mercator4定义的fasta规范的序列信息，程序汇报错，按照提示将序列提交到 <a href="https://www.plabipd.de/portal/web/guest/mercator-fasta-validator">mercator-fasta-validator</a> 进行序列过滤即可。</p>
+<p>注释完成后点击<code>Mercator4 annotation results</code>下载结果文件。 注释结果如图：</p>
+<p><img src="https://raw.githubusercontent.com/slbai01/picture/main/img/Mercator4-annotation-result.png" alt="Mercator4-annotation-result"></p>
+<p>由于<code>Mercator4</code>会将geneID中的大写字母替换为小写字母，因此需要还原geneID。 这里由于后续的geneID内不含有转录本编号，因此在这里一并去除。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">cat maizeV4.mapman.results.txt | sed <span class="string">&#x27;s/zm/Zm/g&#x27;</span> | sed <span class="string">&#x27;s/_p[0-9]*//g&#x27;</span> &gt; maizeV4.mapman.results.rename.txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="MapMan-使用"><a href="#MapMan-使用" class="headerlink" title="MapMan 使用"></a>MapMan 使用</h3><ol>
+<li>添加 <code>Mappings</code><br>在 MapMan主页面内右键 <code>Mappings</code>，选择 <code>New Mappings</code>，选择 <code>form file</code>，随后选择目标文件即可</li>
+<li>添加 <code>Experiments</code><br>在 MapMan主页面内右键 <code>Experiments</code>，选择 <code>Add Data</code>，选择目标文件双击打开，根据实际情况勾选数据格式，随后点<code>确定</code>即可完成数据导入<ul>
+<li>数据格式为：<br><img src="https://raw.githubusercontent.com/slbai01/picture/main/img/Mapman-upload-sample-data.png" alt="Mapman-upload-sample-data"></li>
+<li>MapMan数据格式勾选示例：<br><img src="https://raw.githubusercontent.com/slbai01/picture/main/img/Mapman-upload-sample-data-format-select.png" alt="Mapman-upload-sample-data-format-select"></li>
+</ul>
+</li>
+<li>选择 <code>Pathways</code><br>在感兴趣的 <code>Pathways</code> 上右键点击，这里以 <code>Overview</code> 为例，点击 <code>Choose mapping</code>，选择第一步导入的 <code>Mappings files</code> 即可</li>
+<li>呈现基因变化或表达量等信息，由导入的数据本身决定<br>展开第二步导入的<code>Experiments-data</code>信息，选择不同的列即可观察到对应<code>Pathways</code>上会呈现不同颜色的点，这就是最终得到的<strong>结果信息</strong>。</li>
+</ol>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><p><a href="https://mapman.gabipd.org/home">MapMan main page</a><br><a href="https://www.sciencedirect.com/science/article/pii/S1674205219300085">MapMan4: A Refined Protein Classification and Annotation Framework Applicable to Multi-Omics Data Analysis</a></p>
+]]></content>
+      <categories>
+        <category>生物信息学</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+        <tag>基因注释</tag>
+      </tags>
+  </entry>
 </search>
