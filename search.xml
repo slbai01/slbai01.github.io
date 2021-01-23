@@ -353,14 +353,21 @@
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">cat maizeV4.mapman.results.txt | sed <span class="string">&#x27;s/zm/Zm/g&#x27;</span> | sed <span class="string">&#x27;s/_p[0-9]*//g&#x27;</span> &gt; maizeV4.mapman.results.rename.txt</span><br></pre></td></tr></table></figure>
 
 <h3 id="MapMan-使用"><a href="#MapMan-使用" class="headerlink" title="MapMan 使用"></a>MapMan 使用</h3><ol>
-<li>添加 <code>Mappings</code><br>在 MapMan 主页面内右键 <code>Mappings</code>，选择 <code>New Mappings</code>，选择 <code>form file</code>，随后选择目标文件即可</li>
-<li>添加 <code>Experiments</code><br>在 MapMan 主页面内右键 <code>Experiments</code>，选择 <code>Add Data</code>，选择目标文件双击打开，根据实际情况勾选数据格式，随后点<code>确定</code>即可完成数据导入<ul>
+<li><p>添加 <code>Mappings</code><br>在 MapMan 主页面内右键 <code>Mappings</code>，选择 <code>New Mappings</code>，选择 <code>form file</code>，随后选择目标文件即可</p>
+</li>
+<li><p>添加 <code>Experiments</code><br>在 MapMan 主页面内右键 <code>Experiments</code>，选择 <code>Add Data</code>，选择目标文件双击打开，根据实际情况勾选数据格式，随后点<code>确定</code>即可完成数据导入</p>
+<ul>
 <li>数据格式为：<br><img src="https://raw.githubusercontent.com/slbai01/picture/main/img/Mapman-upload-sample-data.png" alt="Mapman-upload-sample-data"></li>
 <li>MapMan数据格式勾选示例：<br><img src="https://raw.githubusercontent.com/slbai01/picture/main/img/Mapman-upload-sample-data-format-select.png" alt="Mapman-upload-sample-data-format-select"></li>
 </ul>
 </li>
-<li>选择 <code>Pathways</code><br>在感兴趣的 <code>Pathways</code> 上右键点击，这里以 <code>Overview</code> 为例，点击 <code>Choose mapping</code>，选择第一步导入的 <code>Mappings files</code> 即可</li>
-<li>呈现基因变化或表达量等信息，由导入的数据本身决定<br>展开第二步导入的<code>Experiments-data</code>信息，选择不同的列即可观察到对应<code>Pathways</code>上会呈现不同颜色的点，这就是最终得到的<strong>结果信息</strong>。</li>
+<li><p>导入 <code>Pathways</code><br>在 <a href="https://mapman.gabipd.org/mapmanstore">mapman网站</a>下载需要的·<code>Pathways</code> 信息，需要下载 <code>image file</code> 和 <code>xml file</code>两个文件，将下载过的文件移入自定义的 Mapman 软件文件夹下，在 <code>Pathways</code> 上右键点击选择 <code>Add Pathways</code>，选择 <code>from file</code>，进入数据存储目录选择 <code>svg/png</code> 格式文件即可完成导入</p>
+</li>
+<li><p>选择 <code>Pathways</code><br>在感兴趣的 <code>Pathways</code> 上右键点击，这里以 <code>Overview</code> 为例，点击 <code>Choose mapping</code>，选择第一步导入的 <code>Mappings files</code>，随后选择 <code>Show</code></p>
+<p><strong>Tips</strong>:<br>如果使用v4版本<code>Mercator4</code>获得的<code>mapping files</code>，在选择<code>Pathways</code>的时候只能选择以<code>X4</code>起始的文件。</p>
+</li>
+<li><p>呈现基因变化或表达量等信息，由导入的数据本身决定<br>展开第二步导入的<code>Experiments-data</code>信息，选择不同的列即可观察到对应<code>Pathways</code>上会呈现不同颜色的点，这就是最终得到的<strong>结果信息</strong>。</p>
+</li>
 </ol>
 <h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><p><a href="https://mapman.gabipd.org/home">MapMan main page</a><br><a href="https://www.sciencedirect.com/science/article/pii/S1674205219300085">MapMan4: A Refined Protein Classification and Annotation Framework Applicable to Multi-Omics Data Analysis</a></p>
 ]]></content>
