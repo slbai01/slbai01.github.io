@@ -379,4 +379,24 @@
         <tag>基因注释</tag>
       </tags>
   </entry>
+  <entry>
+    <title>SRA-data-download</title>
+    <url>/2021/02/25/SRA-data-download/</url>
+    <content><![CDATA[<p>SRA数据下载方式:</p>
+<p><a href="https://sra-explorer.info/#">https://sra-explorer.info/#</a></p>
+<a id="more"></a>
+
+<p>由于NCBI数据存储地址更新，导致使用传统的 prefetch / ascp构造下载链接 等方式会出现部分数据不能正常下载的情况。 使用<a href="https://sra-explorer.info/#">上述网址</a>可以直接解析下载链接，然后通过 <code>ascp/wget</code> 等方式下载 <code>sra/fastq</code> 文件即可。</p>
+<p>参考资料：</p>
+<blockquote>
+<p><a href="https://www.jieandze1314.com/post/cnposts/197/">197-也许是最方便的SRA数据下载方式</a><br><a href="https://github.com/ewels/sra-explorer">github源码</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>生物信息学</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+      </tags>
+  </entry>
 </search>
