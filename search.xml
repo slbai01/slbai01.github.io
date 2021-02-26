@@ -399,4 +399,24 @@
         <tag>教程</tag>
       </tags>
   </entry>
+  <entry>
+    <title>linux磁盘挂载与推出</title>
+    <url>/2021/02/26/linux-disk-mount/</url>
+    <content><![CDATA[<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">lsblk <span class="comment"># 查看磁盘是否正确插入，如果正常则会显示 sdb / sdc 等</span></span><br><span class="line">mount /dev/sdc1 /mnt/disk2sdc1 <span class="comment"># 挂载磁盘</span></span><br><span class="line">umount /mnt/disk2sdc1 <span class="comment"># 推出磁盘</span></span><br><span class="line">nohup rsync -avP /mnt/disk3/F20FTSCCWLJ4097_WHEojlR/* ./ &amp; <span class="comment"># 拷贝文件</span></span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<ul>
+<li>服务器间传输文件</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 从当前目录拷贝到远程路径 </span></span><br><span class="line">/public/home/song/database/ 为当前目录，后面为目标（远程）目录</span><br><span class="line">rsync -rP --rsh=ssh /public/home/song/database/ sunguiling@10.12.253.66:/share/home/sunguiling/ZhiWuNiJing/database/B73/hisat_build/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置host后，可使用该命令进行</span></span><br><span class="line">scp local_file slbai:remote_path</span><br><span class="line">scp Ppatens_318_v3.fa  slbai:/home/slbai/database/Physcomitrella_patens/JGI_v3.3/assembly</span><br><span class="line"></span><br><span class="line">配置文件为: /share/home/baishenglong/.ssh/config</span><br><span class="line">配置内容为:</span><br><span class="line">StrictHostKeyChecking no</span><br><span class="line">Host slbai</span><br><span class="line">    Hostname 10.12.7.88</span><br><span class="line">    User slbai</span><br><span class="line">    ForwardX11 yes</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Linux基础</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+        <tag>Linux基础</tag>
+      </tags>
+  </entry>
 </search>

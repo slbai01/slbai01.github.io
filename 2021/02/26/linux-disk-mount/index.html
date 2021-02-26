@@ -24,18 +24,22 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"slbai01.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":3,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="随笔">
-<meta property="og:type" content="website">
-<meta property="og:title" content="slbai&#39;s Blog">
-<meta property="og:url" content="https://slbai01.github.io/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/index.html">
+<meta name="description" content="1234lsblk # 查看磁盘是否正确插入，如果正常则会显示 sdb &#x2F; sdc 等mount &#x2F;dev&#x2F;sdc1 &#x2F;mnt&#x2F;disk2sdc1 # 挂载磁盘umount &#x2F;mnt&#x2F;disk2sdc1 # 推出磁盘nohup rsync -avP &#x2F;mnt&#x2F;disk3&#x2F;F20FTSCCWLJ4097_WHEojlR&#x2F;* .&#x2F; &amp; # 拷贝文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux磁盘挂载与推出">
+<meta property="og:url" content="https://slbai01.github.io/2021/02/26/linux-disk-mount/index.html">
 <meta property="og:site_name" content="slbai&#39;s Blog">
-<meta property="og:description" content="随笔">
+<meta property="og:description" content="1234lsblk # 查看磁盘是否正确插入，如果正常则会显示 sdb &#x2F; sdc 等mount &#x2F;dev&#x2F;sdc1 &#x2F;mnt&#x2F;disk2sdc1 # 挂载磁盘umount &#x2F;mnt&#x2F;disk2sdc1 # 推出磁盘nohup rsync -avP &#x2F;mnt&#x2F;disk3&#x2F;F20FTSCCWLJ4097_WHEojlR&#x2F;* .&#x2F; &amp; # 拷贝文件">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-02-26T03:02:18.000Z">
+<meta property="article:modified_time" content="2021-02-26T03:18:00.295Z">
 <meta property="article:author" content="slbai">
+<meta property="article:tag" content="教程">
+<meta property="article:tag" content="Linux基础">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://slbai01.github.io/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">
+<link rel="canonical" href="https://slbai01.github.io/2021/02/26/linux-disk-mount/">
 
 
 <script class="page-configurations">
@@ -43,11 +47,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
-<title>Category: 生物信息学 | slbai's Blog</title>
+<title>linux磁盘挂载与推出 | slbai's Blog</title>
   
 
 
@@ -246,93 +250,134 @@
 </noscript>
 
 
-    <div class="main-inner category posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
-  
-  
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <h2 class="collection-header">生物信息学
-          <small>Category</small>
-        </h2>
-      </div>
 
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://slbai01.github.io/2021/02/26/linux-disk-mount/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="slbai">
+      <meta itemprop="description" content="随笔">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="slbai's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          linux磁盘挂载与推出
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
+
+      <time title="Created: 2021-02-26 11:02:18 / Modified: 11:18:00" itemprop="dateCreated datePublished" datetime="2021-02-26T11:02:18+08:00">2021-02-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Linux%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">Linux基础</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/02/26/linux-disk-mount/" class="post-meta-item leancloud_visitors" data-flag-title="linux磁盘挂载与推出" title="Views">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="Symbols count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Symbols count in article: </span>
+      <span>624</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>1 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lsblk <span class="comment"># 查看磁盘是否正确插入，如果正常则会显示 sdb / sdc 等</span></span><br><span class="line">mount /dev/sdc1 /mnt/disk2sdc1 <span class="comment"># 挂载磁盘</span></span><br><span class="line">umount /mnt/disk2sdc1 <span class="comment"># 推出磁盘</span></span><br><span class="line">nohup rsync -avP /mnt/disk3/F20FTSCCWLJ4097_WHEojlR/* ./ &amp; <span class="comment"># 拷贝文件</span></span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<ul>
+<li>服务器间传输文件</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从当前目录拷贝到远程路径 </span></span><br><span class="line">/public/home/song/database/ 为当前目录，后面为目标（远程）目录</span><br><span class="line">rsync -rP --rsh=ssh /public/home/song/database/ sunguiling@10.12.253.66:/share/home/sunguiling/ZhiWuNiJing/database/B73/hisat_build/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置host后，可使用该命令进行</span></span><br><span class="line">scp local_file slbai:remote_path</span><br><span class="line">scp Ppatens_318_v3.fa  slbai:/home/slbai/database/Physcomitrella_patens/JGI_v3.3/assembly</span><br><span class="line"></span><br><span class="line">配置文件为: /share/home/baishenglong/.ssh/config</span><br><span class="line">配置内容为:</span><br><span class="line">StrictHostKeyChecking no</span><br><span class="line">Host slbai</span><br><span class="line">    Hostname 10.12.7.88</span><br><span class="line">    User slbai</span><br><span class="line">    ForwardX11 yes</span><br></pre></td></tr></table></figure>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-02-25T09:15:04+08:00"
-              content="2021-02-25">
-          02-25
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/02/25/SRA-data-download/" itemprop="url">
-            <span itemprop="name">SRA数据下载</span>
-          </a>
-      </div>
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%99%E7%A8%8B/" rel="tag"><i class="fa fa-tags"></i> 教程</a>
+              <a href="/tags/Linux%E5%9F%BA%E7%A1%80/" rel="tag"><i class="fa fa-tags"></i> Linux基础</a>
+          </div>
 
-      
-    </header>
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/02/25/SRA-data-download/" rel="prev" title="SRA数据下载">
+                  <i class="fa fa-chevron-left"></i> SRA数据下载
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
   </article>
+</div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-01-22T10:49:55+08:00"
-              content="2021-01-22">
-          01-22
-        </time>
-      </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/01/22/mapman-usage/" itemprop="url">
-            <span itemprop="name">mapman使用简介</span>
-          </a>
-      </div>
 
-      
-    </header>
-  </article>
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
-    </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2020-12-29T15:11:50+08:00"
-              content="2020-12-29">
-          12-29
-        </time>
-      </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/12/29/check-gene-structure/" itemprop="url">
-            <span itemprop="name">基因组注释的基因结构核实</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-    </div>
-  </div>
-  
-  
-  
 
 
 <script>
