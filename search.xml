@@ -425,7 +425,7 @@
     <content><![CDATA[<p>物理图谱与遗传图谱的共线性常被用来评估基因组组装质量，同源挂载等</p>
 <p>可选软件：</p>
 <ul>
-<li><a href="https://github.com/tanghaibao/jcvi/wiki/ALLMAPS">jcvi-allmaps</a>：功能包括 1）根据遗传图谱挂载物理图谱；2）拆分嵌合contig；3）估计gap长度；4）计算物理图谱与遗传图谱的共线性 等</li>
+<li><a href="https://github.com/tanghaibao/jcvi/wiki/ALLMAPS">jcvi-allmaps</a><br>功能包括 1）根据遗传图谱挂载物理图谱；2）拆分嵌合contig；3）估计gap长度；4）计算物理图谱与遗传图谱的共线性 等</li>
 <li><a href="https://www.biorxiv.org/content/biorxiv/early/2016/11/29/090415.full.pdf">DMAP</a> 未测试该软件</li>
 <li>ggplot2 未测试</li>
 </ul>
