@@ -431,9 +431,9 @@
 </ul>
 <a id="more"></a>
 
-<h2 id="jcvi-allmaps"><a href="#jcvi-allmaps" class="headerlink" title="jcvi-allmaps"></a>jcvi-allmaps</h2><p>软件安装参照 <a href="https://github.com/tanghaibao/jcvi/wiki/ALLMAPS">官网介绍</a></p>
+<h2 id="1-jcvi-allmaps"><a href="#1-jcvi-allmaps" class="headerlink" title="1. jcvi-allmaps"></a>1. jcvi-allmaps</h2><p>软件安装参照 <a href="https://github.com/tanghaibao/jcvi/wiki/ALLMAPS">官网介绍</a></p>
 <p>官网以两个不同的遗传图谱为例，下面以<strong>一个遗传图谱</strong>为例进行介绍。</p>
-<h3 id="1-准备物理图谱和遗传图谱共线性文件"><a href="#1-准备物理图谱和遗传图谱共线性文件" class="headerlink" title="1. 准备物理图谱和遗传图谱共线性文件"></a>1. 准备物理图谱和遗传图谱共线性文件</h3><p>通常以遗传图谱的<code>marker序列</code>为query序列查找其在参考基因组上的定位，共线性文件格式为：</p>
+<h3 id="1-1-准备物理图谱和遗传图谱共线性文件"><a href="#1-1-准备物理图谱和遗传图谱共线性文件" class="headerlink" title="1.1. 准备物理图谱和遗传图谱共线性文件"></a>1.1. 准备物理图谱和遗传图谱共线性文件</h3><p>通常以遗传图谱的<code>marker序列</code>为query序列查找其在参考基因组上的定位，共线性文件格式为：</p>
 <ol>
 <li>逗号分隔文本文件</li>
 <li>前两列为物理位置</li>
@@ -441,10 +441,10 @@
 </ol>
 <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">chr1D,16791958,1,168.33</span><br><span class="line">chr1D,38579229,1,463.21</span><br><span class="line">chr1D,43710824,1,467.97</span><br><span class="line">chr1D,415454245,1,288.95</span><br><span class="line">chr1D,21308457,1,179.51</span><br><span class="line">chr1D,408248047,1,412.86</span><br><span class="line">chr1D,49745837,1,469.23</span><br><span class="line">chr1D,10956960,1,154.73</span><br><span class="line">chr1D,411733058,1,414.17</span><br></pre></td></tr></table></figure>
 
-<h3 id="2-转换共线性文件格式"><a href="#2-转换共线性文件格式" class="headerlink" title="2. 转换共线性文件格式"></a>2. 转换共线性文件格式</h3><p>文件格式转换为 <code>bed</code>，下列命令生成文件 <code>weights.txt</code> 和 <code>out.bed</code></p>
+<h3 id="1-2-转换共线性文件格式"><a href="#1-2-转换共线性文件格式" class="headerlink" title="1.2. 转换共线性文件格式"></a>1.2. 转换共线性文件格式</h3><p>文件格式转换为 <code>bed</code>，下列命令生成文件 <code>weights.txt</code> 和 <code>out.bed</code></p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sed -i <span class="string">&#x27;s/\t/,/g&#x27;</span> phy_gen_maps.csv <span class="comment"># 如果准备文件为制表符分割，需要转换为逗号分隔</span></span><br><span class="line">python -m jcvi.assembly.allmaps merge phy_gen_maps.csv</span><br></pre></td></tr></table></figure>
 
-<h2 id="3-生成共线性结果"><a href="#3-生成共线性结果" class="headerlink" title="3. 生成共线性结果"></a>3. 生成共线性结果</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ln -s chrD/chrD.fa ./scaffolds.fasta</span><br><span class="line"><span class="comment"># 如果没有参考基因组序列，可使用下列命令伪造基因组</span></span><br><span class="line">bsubt -q rackB <span class="string">&quot;python -m jcvi.assembly.allmaps fake out.bed -o fake.fa&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> PATH=~/softwares/allmaps:<span class="variable">$PATH</span> <span class="comment"># concorde  faSize  liftOver 添加到环境变量</span></span><br><span class="line">python -m jcvi.assembly.allmaps path out.bed scaffolds.fasta</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="1-3-生成共线性结果"><a href="#1-3-生成共线性结果" class="headerlink" title="1.3. 生成共线性结果"></a>1.3. 生成共线性结果</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ln -s chrD/chrD.fa ./scaffolds.fasta</span><br><span class="line"><span class="comment"># 如果没有参考基因组序列，可使用下列命令伪造基因组</span></span><br><span class="line">bsubt -q rackB <span class="string">&quot;python -m jcvi.assembly.allmaps fake out.bed -o fake.fa&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> PATH=~/softwares/allmaps:<span class="variable">$PATH</span> <span class="comment"># concorde  faSize  liftOver 添加到环境变量</span></span><br><span class="line">python -m jcvi.assembly.allmaps path out.bed scaffolds.fasta</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>结果文件解释：</p>
 <blockquote>
