@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-grav-16x16.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-grav-32x32.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-grav-16x16.svg">
+  <link rel="mask-icon" href="/images/favicon-grav-16x16.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"slbai01.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":3,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="Snakemake:一个工作流管理系统，是创建可重现和可扩展的数据分析的工具。基于Python的人类可读语言来描述工作流。可以无需修改工作流程定义，无缝扩展到服务器、群集、网格和云环境。Snakemake工作流程可以根据需要描述所需的软件，该软件将自动部署到任何执行环境中。 常用操作： 123snakemake -np # 伪运行，只输出命令，常用于检查流程文件编写是否正确snakemake --">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Snakemake流程管理工具非官方不完全使用教程">
+<meta property="og:url" content="https://slbai01.github.io/2021/03/16/snakemake-tutorial-chinese/index.html">
+<meta property="og:site_name" content="slbai&#39;s Blog">
+<meta property="og:description" content="Snakemake:一个工作流管理系统，是创建可重现和可扩展的数据分析的工具。基于Python的人类可读语言来描述工作流。可以无需修改工作流程定义，无缝扩展到服务器、群集、网格和云环境。Snakemake工作流程可以根据需要描述所需的软件，该软件将自动部署到任何执行环境中。 常用操作： 123snakemake -np # 伪运行，只输出命令，常用于检查流程文件编写是否正确snakemake --">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-03-16T04:01:04.000Z">
+<meta property="article:modified_time" content="2021-03-16T12:40:24.846Z">
+<meta property="article:author" content="slbai">
+<meta property="article:tag" content="教程">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://slbai01.github.io/2021/03/16/snakemake-tutorial-chinese/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+<title>Snakemake流程管理工具非官方不完全使用教程 | slbai's Blog</title>
+  
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">slbai's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">为一线微茫憧憬一意孤行，这众生芸芸谁不曾如此任性</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-edit-workflow"><span class="nav-number">1.</span> <span class="nav-text">Quick edit workflow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90%E9%A1%BA%E5%BA%8F"><span class="nav-number">2.</span> <span class="nav-text">文件解析顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD-%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">常用功能&#x2F;配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E7%94%A8%E8%AF%AD%E6%B3%95"><span class="nav-number">3.1.</span> <span class="nav-text">可用语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">3.2.</span> <span class="nav-text">配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E9%85%8D%E7%AC%A6-Wildcards"><span class="nav-number">3.3.</span> <span class="nav-text">通配符-Wildcards</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4%E8%B5%84%E6%BA%90%E8%B0%83%E7%94%A8%E9%85%8D%E7%BD%AE"><span class="nav-number">3.4.</span> <span class="nav-text">集群资源调用配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97%E5%8C%96%E8%A7%84%E5%88%99"><span class="nav-number">3.5.</span> <span class="nav-text">模块化规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E5%8F%82%E6%95%B0%EF%BC%8C%E5%AD%98%E5%82%A8%E6%97%A5%E5%BF%97"><span class="nav-number">3.6.</span> <span class="nav-text">指定参数，存储日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%9A%E5%90%88-expand"><span class="nav-number">3.7.</span> <span class="nav-text">聚合-expand</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%8C%87%E5%AE%9A%E4%B8%BA%E7%9B%AE%E5%BD%95"><span class="nav-number">3.8.</span> <span class="nav-text">输出指定为目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%84%E5%88%99%E4%BE%9D%E8%B5%96"><span class="nav-number">3.9.</span> <span class="nav-text">规则依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%9D%E6%8A%A4%E6%96%87%E4%BB%B6%E5%92%8C%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6"><span class="nav-number">3.10.</span> <span class="nav-text">保护文件和临时文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E7%BA%BF%E7%A8%8B%E6%95%B0%E5%92%8C%E8%B5%84%E6%BA%90"><span class="nav-number">3.11.</span> <span class="nav-text">指定线程数和资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%B3%BB%E7%BB%9F-module-%E7%AD%89%E5%90%8C-linux-module-load-xx"><span class="nav-number">3.12.</span> <span class="nav-text">使用系统 module (等同 linux: module load xx)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95"><span class="nav-number">3.13.</span> <span class="nav-text">设置工作目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E6%8A%A5%E5%91%8A%E6%96%87%E4%BB%B6"><span class="nav-number">3.14.</span> <span class="nav-text">生成报告文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">3.15.</span> <span class="nav-text">生成测试数据集</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%9B%AE%E5%BD%95%E7%BB%84%E7%BB%87%E7%BB%93%E6%9E%84"><span class="nav-number">4.</span> <span class="nav-text">工作流目录组织结构</span></a></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">slbai</p>
+  <div class="site-description" itemprop="description">随笔</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/slbai01" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;slbai01" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:slbai01.At.foxmail.com" title="E-Mail → mailto:slbai01.At.foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </section>
+      </div>
+        <div class="back-to-top animated">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://slbai01.github.io/2021/03/16/snakemake-tutorial-chinese/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="slbai">
+      <meta itemprop="description" content="随笔">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="slbai's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Snakemake流程管理工具非官方不完全使用教程
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2021-03-16 12:01:04 / Modified: 20:40:24" itemprop="dateCreated datePublished" datetime="2021-03-16T12:01:04+08:00">2021-03-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">生物信息学</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/03/16/snakemake-tutorial-chinese/" class="post-meta-item leancloud_visitors" data-flag-title="Snakemake流程管理工具非官方不完全使用教程" title="Views">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="Symbols count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Symbols count in article: </span>
+      <span>12k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>11 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><a target="_blank" rel="noopener" href="https://snakemake.github.io/">Snakemake</a>:一个工作流管理系统，是创建可重现和可扩展的数据分析的工具。基于Python的人类可读语言来描述工作流。可以无需修改工作流程定义，无缝扩展到服务器、群集、网格和云环境。Snakemake工作流程可以根据需要描述所需的软件，该软件将自动部署到任何执行环境中。</p>
+<p>常用操作：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">snakemake -np <span class="comment"># 伪运行，只输出命令，常用于检查流程文件编写是否正确</span></span><br><span class="line">snakemake --dag | dot -Tpdf &gt; dag.pdf <span class="comment"># 生成DAG图</span></span><br><span class="line">nohup snakemake -j 100 --drmaa -s Snakefile --verbose -p &amp; <span class="comment"># 执行流程</span></span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h2 id="Quick-edit-workflow"><a href="#Quick-edit-workflow" class="headerlink" title="Quick edit workflow"></a>Quick edit workflow</h2><p><a target="_blank" rel="noopener" href="https://snakemake.readthedocs.io/en/stable/tutorial/basics.html">Basics: An example workflow</a><br><a target="_blank" rel="noopener" href="https://snakemake.readthedocs.io/en/stable/tutorial/advanced.html#summary">Advanced: Decorating the example workflow</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">configfile: <span class="string">&quot;config.yaml&quot;</span></span><br><span class="line"></span><br><span class="line">rule <span class="built_in">all</span>:</span><br><span class="line">    <span class="built_in">input</span>:</span><br><span class="line">        <span class="string">&quot;plots/quals.svg&quot;</span></span><br><span class="line"></span><br><span class="line">rule bwa_map:</span><br><span class="line">    <span class="built_in">input</span>:</span><br><span class="line">        <span class="string">&quot;data/genome.fa&quot;</span>,</span><br><span class="line">        <span class="keyword">lambda</span> wildcards: config[<span class="string">&quot;samples&quot;</span>][wildcards.sample]</span><br><span class="line">    output:</span><br><span class="line">        temp(<span class="string">&quot;mapped_reads/&#123;sample&#125;.bam&quot;</span>)</span><br><span class="line">    params:</span><br><span class="line">        rg=<span class="string">r&quot;@RG\tID:&#123;sample&#125;\tSM:&#123;sample&#125;&quot;</span></span><br><span class="line">    log:</span><br><span class="line">        <span class="string">&quot;logs/bwa_mem/&#123;sample&#125;.log&quot;</span></span><br><span class="line">    threads: <span class="number">8</span></span><br><span class="line">    shell:</span><br><span class="line">        <span class="string">&quot;(bwa mem -R &#x27;&#123;params.rg&#125;&#x27; -t &#123;threads&#125; &#123;input&#125; | &quot;</span></span><br><span class="line">        <span class="string">&quot;samtools view -Sb - &gt; &#123;output&#125;) 2&gt; &#123;log&#125;&quot;</span></span><br><span class="line"></span><br><span class="line">rule samtools_sort:</span><br><span class="line">    <span class="built_in">input</span>:</span><br><span class="line">        <span class="string">&quot;mapped_reads/&#123;sample&#125;.bam&quot;</span></span><br><span class="line">    output:</span><br><span class="line">        protected(<span class="string">&quot;sorted_reads/&#123;sample&#125;.bam&quot;</span>)</span><br><span class="line">    shell:</span><br><span class="line">        <span class="string">&quot;samtools sort -T sorted_reads/&#123;wildcards.sample&#125; &quot;</span></span><br><span class="line">        <span class="string">&quot;-O bam &#123;input&#125; &gt; &#123;output&#125;&quot;</span></span><br><span class="line"></span><br><span class="line">rule samtools_index:</span><br><span class="line">    <span class="built_in">input</span>:</span><br><span class="line">        <span class="string">&quot;sorted_reads/&#123;sample&#125;.bam&quot;</span></span><br><span class="line">    output:</span><br><span class="line">        <span class="string">&quot;sorted_reads/&#123;sample&#125;.bam.bai&quot;</span></span><br><span class="line">    shell:</span><br><span class="line">        <span class="string">&quot;samtools index &#123;input&#125;&quot;</span></span><br><span class="line"></span><br><span class="line">rule bcftools_call:</span><br><span class="line">    <span class="built_in">input</span>:</span><br><span class="line">        fa=<span class="string">&quot;data/genome.fa&quot;</span>,</span><br><span class="line">        bam=expand(<span class="string">&quot;sorted_reads/&#123;sample&#125;.bam&quot;</span>, sample=config[<span class="string">&quot;samples&quot;</span>]),</span><br><span class="line">        bai=expand(<span class="string">&quot;sorted_reads/&#123;sample&#125;.bam.bai&quot;</span>, sample=config[<span class="string">&quot;samples&quot;</span>])</span><br><span class="line">    output:</span><br><span class="line">        <span class="string">&quot;calls/all.vcf&quot;</span></span><br><span class="line">    params:</span><br><span class="line">        rate=config[<span class="string">&quot;prior_mutation_rate&quot;</span>]</span><br><span class="line">    log:</span><br><span class="line">        <span class="string">&quot;logs/bcftools_call/&#123;sample&#125;.log&quot;</span></span><br><span class="line">    shell:</span><br><span class="line">        <span class="string">&quot;samtools mpileup -g -f &#123;input.fa&#125; &#123;input.bam&#125; | &quot;</span></span><br><span class="line">        <span class="string">&quot;bcftools call -mv -P &#123;params.rate&#125; - &gt; &#123;output&#125;&quot;</span></span><br><span class="line"></span><br><span class="line">rule plot_quals:</span><br><span class="line">    <span class="built_in">input</span>:</span><br><span class="line">        <span class="string">&quot;calls/all.vcf&quot;</span></span><br><span class="line">    output:</span><br><span class="line">        <span class="string">&quot;plots/quals.svg&quot;</span></span><br><span class="line">    script:</span><br><span class="line">        <span class="string">&quot;scripts/plot-quals.py&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="文件解析顺序"><a href="#文件解析顺序" class="headerlink" title="文件解析顺序"></a>文件解析顺序</h2><p>Snakemake工作流执行分为三个阶段：</p>
+<ol>
+<li>起始阶段，解析工作流文件，并对 <code>rule</code> 进行实例化</li>
+<li>DAG阶段，填充通配符，将输入文件与输出文件进行匹配，构建所有作业的有向非循环依赖图</li>
+<li>调度阶段，执行DAG，根据资源启动任务</li>
+</ol>
+<h2 id="常用功能-配置"><a href="#常用功能-配置" class="headerlink" title="常用功能/配置"></a>常用功能/配置</h2><h3 id="可用语法"><a href="#可用语法" class="headerlink" title="可用语法"></a>可用语法</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">snakemake    = statement | rule | include | workdir | module | configfile | container</span><br><span class="line">rule         = &quot;rule&quot; (identifier | &quot;&quot;) &quot;:&quot; ruleparams</span><br><span class="line">include      = &quot;include:&quot; stringliteral</span><br><span class="line">workdir      = &quot;workdir:&quot; stringliteral</span><br><span class="line">module       = &quot;module&quot; identifier &quot;:&quot; moduleparams</span><br><span class="line">configfile   = &quot;configfile&quot; &quot;:&quot; stringliteral</span><br><span class="line">userule      = &quot;use&quot; &quot;rule&quot; (identifier | &quot;*&quot;) &quot;from&quot; identifier [&quot;as&quot; identifier] [&quot;with&quot; &quot;:&quot; norunparams]</span><br><span class="line">ni           = NEWLINE INDENT</span><br><span class="line">norunparams  = [ni input] [ni output] [ni params] [ni message] [ni threads] [ni resources] [ni log] [ni conda] [ni container] [ni benchmark] [ni cache]</span><br><span class="line">ruleparams   = norunparams [ni (run | shell | script | notebook)] NEWLINE snakemake</span><br><span class="line">input        = &quot;input&quot; &quot;:&quot; parameter_list</span><br><span class="line">output       = &quot;output&quot; &quot;:&quot; parameter_list</span><br><span class="line">params       = &quot;params&quot; &quot;:&quot; parameter_list</span><br><span class="line">log          = &quot;log&quot; &quot;:&quot; parameter_list</span><br><span class="line">benchmark    = &quot;benchmark&quot; &quot;:&quot; statement</span><br><span class="line">cache        = &quot;cache&quot; &quot;:&quot; bool</span><br><span class="line">message      = &quot;message&quot; &quot;:&quot; stringliteral</span><br><span class="line">threads      = &quot;threads&quot; &quot;:&quot; integer</span><br><span class="line">resources    = &quot;resources&quot; &quot;:&quot; parameter_list</span><br><span class="line">version      = &quot;version&quot; &quot;:&quot; statement</span><br><span class="line">conda        = &quot;conda&quot; &quot;:&quot; stringliteral</span><br><span class="line">container    = &quot;container&quot; &quot;:&quot; stringliteral</span><br><span class="line">run          = &quot;run&quot; &quot;:&quot; ni statement</span><br><span class="line">shell        = &quot;shell&quot; &quot;:&quot; stringliteral</span><br><span class="line">script       = &quot;script&quot; &quot;:&quot; stringliteral</span><br><span class="line">notebook     = &quot;notebook&quot; &quot;:&quot; stringliteral</span><br><span class="line">moduleparams = [ni snakefile] [ni metawrapper] [ni config] [ni skipval]</span><br><span class="line">snakefile    = &quot;snakefile&quot; &quot;:&quot; stringliteral</span><br><span class="line">metawrapper  = &quot;meta_wrapper&quot; &quot;:&quot; stringliteral</span><br><span class="line">config       = &quot;config&quot; &quot;:&quot; stringliteral</span><br><span class="line">skipval      = &quot;skip_validation&quot; &quot;:&quot; stringliteral</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>配置文件可使用 <a target="_blank" rel="noopener" href="https://json.org/">json</a> 或 <a target="_blank" rel="noopener" href="https://yaml.org/">yaml</a> 格式, 在 <code>Snakefile</code> 文件顶部添加以下命令引入配置文件信息，并按照字典格式调用信息</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configfile: <span class="string">&quot;config.json&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="通配符-Wildcards"><a href="#通配符-Wildcards" class="headerlink" title="通配符-Wildcards"></a>通配符-Wildcards</h3><p>Snakemake使用正则表达式将输出文件与输入文件进行匹配，并确定作业之间的依赖关系。有时，需要使用<strong>限制通配符</strong>解决匹配模糊问题。这可以通过添加描述允许的通配符值集的正则表达式来实现。<br>例如，可以将输出文件·<code>sorted_reads/&#123;sample&#125;.bam</code> 中的通配符样本限制为仅允许字母数字样本名称为 <code>sorted_reads/&#123;sample，[A-Za-z0-9]+&#125;.bam</code>。约束可以按规则定义，也可以使用 <code>wildcard_constraints</code> 关键字进行全局定义，如<a target="_blank" rel="noopener" href="https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#snakefiles-wildcards">wildcards</a>所示。 这种机制有助于解决两种歧义。</p>
+<ol>
+<li>避免模棱两可的规则，可以应用于生成相同输出文件的两个或更多规则。处理歧义规则的其他方式在<a target="_blank" rel="noopener" href="https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#snakefiles-ambiguous-rules">处理歧义规则</a>部分中进行了描述。</li>
+<li>可以帮助指导基于正则表达式的匹配，以便将通配符分配给文件名的正确部分。考虑输出文件 <code>&#123;sample&#125;.&#123;group&#125;.txt</code>，并假设目标文件是 <code>A.1.normal.txt</code>。 尚不清楚 <code>dataset=&quot;A.1&quot;</code> 和 <code>group=&quot;normal&quot;</code> 还是 <code>dataset=&quot;A&quot;</code> 和 <code>group=&quot;1.normal&quot;</code> 是正确的分配。 在这里，通过 <code>&#123;sample,[A-Z]+&#125;.&#123;group&#125;</code> 约束数据集通配符可以解决此问题。</li>
+</ol>
+<p>在处理模棱两可的规则时，最佳实践是首先尝试通过使用适当的文件结构来解决歧义，例如，通过将不同步骤的输出文件分隔在不同目录中。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># method 1</span></span><br><span class="line">output: <span class="string">&quot;&#123;dataset,\d+&#125;.&#123;group&#125;.txt&quot;</span></span><br><span class="line"><span class="comment"># method 2</span></span><br><span class="line">rule complex_conversion:</span><br><span class="line">    <span class="built_in">input</span>:</span><br><span class="line">        <span class="string">&quot;&#123;dataset&#125;/inputfile&quot;</span></span><br><span class="line">    output:</span><br><span class="line">        <span class="string">&quot;&#123;dataset&#125;/file.&#123;group&#125;.txt&quot;</span></span><br><span class="line">    wildcard_constraints:</span><br><span class="line">        dataset=<span class="string">&quot;\d+&quot;</span></span><br><span class="line">    shell:</span><br><span class="line">        <span class="string">&quot;somecommand --group &#123;wildcards.group&#125;  &lt; &#123;input&#125;  &gt; &#123;output&#125;&quot;</span></span><br><span class="line"><span class="comment"># method 3 全局变量</span></span><br><span class="line">wildcard_constraints:</span><br><span class="line">    dataset=<span class="string">&quot;\d+&quot;</span></span><br><span class="line">rule a:</span><br><span class="line">    ...</span><br><span class="line">rule b:</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<h3 id="集群资源调用配置"><a href="#集群资源调用配置" class="headerlink" title="集群资源调用配置"></a>集群资源调用配置</h3><p>SGE: <code>snakemake --cluster qsub --jobs 100</code><br><a target="_blank" rel="noopener" href="https://www.drmaa.org/">DRMAA</a>: <code>snakemake --drmaa --jobs 100</code><br><a target="_blank" rel="noopener" href="https://github.com/snakemake-profiles/doc">lsf</a></p>
+<p>不推荐使用 <a target="_blank" rel="noopener" href="https://snakemake.readthedocs.io/en/stable/snakefiles/configuration.html#snakefiles-cluster-configuration">Cluster Configuration</a> 文件配置集群资源需求</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;__default__&quot;</span> :</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&quot;n&quot;</span>    : <span class="string">&quot;8&quot;</span>,</span><br><span class="line">        <span class="string">&quot;J&quot;</span>    : <span class="string">&quot;gatk_SV&quot;</span>,</span><br><span class="line">        <span class="string">&quot;e&quot;</span>    : <span class="string">&quot;lsf.err&quot;</span>,</span><br><span class="line">        <span class="string">&quot;o&quot;</span>    : <span class="string">&quot;lsf.out&quot;</span>,</span><br><span class="line">        <span class="string">&quot;q&quot;</span>    : <span class="string">&quot;normalAB&quot;</span>,</span><br><span class="line">        <span class="string">&quot;R&quot;</span>    : <span class="string">&quot;\&quot;span[hosts=1]\&quot;&quot;</span></span><br><span class="line">     &#125;,</span><br><span class="line">    <span class="string">&quot;fastq_QC&quot;</span> :</span><br><span class="line">    &#123;</span><br><span class="line">         <span class="string">&quot;n&quot;</span>    : <span class="string">&quot;8&quot;</span>,</span><br><span class="line">         <span class="string">&quot;J&quot;</span>    : <span class="string">&quot;fastq_QC&quot;</span>,</span><br><span class="line">         <span class="string">&quot;q&quot;</span>    : <span class="string">&quot;normalAB&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">&quot;MarkDuplicates&quot;</span> :</span><br><span class="line">    &#123;</span><br><span class="line">         <span class="string">&quot;n&quot;</span>    : <span class="string">&quot;1&quot;</span>,</span><br><span class="line">         <span class="string">&quot;J&quot;</span>    : <span class="string">&quot;MarkDuplicates&quot;</span>,</span><br><span class="line">         <span class="string">&quot;q&quot;</span>    : <span class="string">&quot;rackB&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">&quot;filter_VCF&quot;</span> :</span><br><span class="line">    &#123;</span><br><span class="line">         <span class="string">&quot;n&quot;</span>    : <span class="string">&quot;1&quot;</span>,</span><br><span class="line">         <span class="string">&quot;J&quot;</span>    : <span class="string">&quot;filter_VCF&quot;</span>,</span><br><span class="line">         <span class="string">&quot;q&quot;</span>    : <span class="string">&quot;normalAB&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="模块化规则"><a href="#模块化规则" class="headerlink" title="模块化规则"></a>模块化规则</h3><p>为便于规则复用，可将规则模块化，模块化文件以 <code>smk</code> 结尾，在 <code>Snakefile</code> 文件内使用 <code>include: &quot;path/to/other.smk</code> 方法调用</p>
+<h3 id="指定参数，存储日志"><a href="#指定参数，存储日志" class="headerlink" title="指定参数，存储日志"></a>指定参数，存储日志</h3><p>使用 <code>params</code> 将参数信息传递到 <code>shell</code> 或 <code>run</code>内<br>使用 <code>log</code> 将日志信息存储入日志文件内<br>使用 <code>benchmark</code> 将资源消耗信息存储入基准测试文件内</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">rule bwa_map:</span><br><span class="line">    <span class="built_in">input</span>:</span><br><span class="line">        <span class="string">&quot;data/genome.fa&quot;</span>,</span><br><span class="line">        <span class="keyword">lambda</span> wildcards: config[<span class="string">&quot;samples&quot;</span>][wildcards.sample]</span><br><span class="line">    output:</span><br><span class="line">        temp(<span class="string">&quot;mapped_reads/&#123;sample&#125;.bam&quot;</span>)</span><br><span class="line">    params:</span><br><span class="line">        rg=<span class="string">&quot;@RG\tID:&#123;sample&#125;\tSM:&#123;sample&#125;&quot;</span></span><br><span class="line">    log:</span><br><span class="line">        <span class="string">&quot;logs/bwa_mem/&#123;sample&#125;.log&quot;</span></span><br><span class="line">    benchmark:</span><br><span class="line">        <span class="string">&quot;benchmarks/&#123;sample&#125;.bwa.benchmark.txt&quot;</span></span><br><span class="line">    threads: <span class="number">8</span></span><br><span class="line">    shell:</span><br><span class="line">        <span class="string">&quot;(bwa mem -R &#x27;&#123;params.rg&#125;&#x27; -t &#123;threads&#125; &#123;input&#125; | &quot;</span></span><br><span class="line">        <span class="string">&quot;samtools view -Sb - &gt; &#123;output&#125;) 2&gt; &#123;log&#125;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="聚合-expand"><a href="#聚合-expand" class="headerlink" title="聚合-expand"></a>聚合-expand</h3><p>对于输入文件是列表的情况，可使用 <code>expand</code> 函数进行聚合</p>
+<p>此处的数据集不是通配符，因为由于expand语句，它被Snakemake解析了。 expand函数还允许组合不同的变量</p>
+<p>expand函数支持插入其他函数</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">expand([&quot;&#123;dataset&#125;/a.&#123;ext&#125;&quot;, &quot;&#123;dataset&#125;/b.&#123;ext&#125;&quot;], zip, dataset=DATASETS, ext=FORMATS)</span><br><span class="line">结果为</span><br><span class="line">[&quot;ds1/a.txt&quot;, &quot;ds1/b.txt&quot;, &quot;ds2/a.csv&quot;, &quot;ds2/b.csv&quot;]</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rule aggregate:</span><br><span class="line">    <span class="built_in">input</span>:</span><br><span class="line">        expand(<span class="string">&quot;&#123;dataset&#125;/a.txt&quot;</span>, dataset=DATASETS)</span><br><span class="line">    output:</span><br><span class="line">        <span class="string">&quot;aggregated.txt&quot;</span></span><br><span class="line">    shell:</span><br><span class="line">        ...</span><br></pre></td></tr></table></figure>
+
+<h3 id="输出指定为目录"><a href="#输出指定为目录" class="headerlink" title="输出指定为目录"></a>输出指定为目录</h3><p><code>version: &gt;5.2.0</code></p>
+<p>使用 <code>directory</code> 函数设置输出为目录</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rule NAME:</span><br><span class="line">    <span class="built_in">input</span>:</span><br><span class="line">        <span class="string">&quot;path/to/inputfile&quot;</span></span><br><span class="line">    output:</span><br><span class="line">        directory(<span class="string">&quot;path/to/outputdir&quot;</span>)</span><br><span class="line">    shell:</span><br><span class="line">        <span class="string">&quot;somecommand &#123;input&#125; &#123;output&#125;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="规则依赖"><a href="#规则依赖" class="headerlink" title="规则依赖"></a>规则依赖</h3><p><code>version: &gt;2.4.8</code>支持该功能</p>
+<p>针对 <code>rule b</code> 使用 <code>rule a</code> 输出的情况</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">rule a:</span><br><span class="line">    <span class="built_in">input</span>:  <span class="string">&quot;path/to/input&quot;</span></span><br><span class="line">    output: a = <span class="string">&quot;path/to/output&quot;</span>, b = <span class="string">&quot;path/to/output2&quot;</span></span><br><span class="line">    shell:  ...</span><br><span class="line"></span><br><span class="line">rule b:</span><br><span class="line">    <span class="built_in">input</span>:  rules.a.output.a</span><br><span class="line">    output: <span class="string">&quot;path/to/output/of/b&quot;</span></span><br><span class="line">    shell:  ...</span><br></pre></td></tr></table></figure>
+
+<h3 id="保护文件和临时文件"><a href="#保护文件和临时文件" class="headerlink" title="保护文件和临时文件"></a>保护文件和临时文件</h3><p>将重要结果文件使用 <code>protected</code> 标记，后续对其进行删除和修改需要额外的确认步骤<br>将中间文件使用 <code>temp</code> 标记，其依赖的任务完成后将会自动删除该文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">rule bwa_map:</span><br><span class="line">    <span class="built_in">input</span>:</span><br><span class="line">        <span class="string">&quot;data/genome.fa&quot;</span>,</span><br><span class="line">        <span class="keyword">lambda</span> wildcards: config[<span class="string">&quot;samples&quot;</span>][wildcards.sample]</span><br><span class="line">    output:</span><br><span class="line">        temp(<span class="string">&quot;mapped_reads/&#123;sample&#125;.bam&quot;</span>)</span><br><span class="line">    params:</span><br><span class="line">        rg=<span class="string">r&quot;@RG\tID:&#123;sample&#125;\tSM:&#123;sample&#125;&quot;</span></span><br><span class="line">    log:</span><br><span class="line">        <span class="string">&quot;logs/bwa_mem/&#123;sample&#125;.log&quot;</span></span><br><span class="line">    threads: <span class="number">8</span></span><br><span class="line">    shell:</span><br><span class="line">        <span class="string">&quot;(bwa mem -R &#x27;&#123;params.rg&#125;&#x27; -t &#123;threads&#125; &#123;input&#125; | &quot;</span></span><br><span class="line">        <span class="string">&quot;samtools view -Sb - &gt; &#123;output&#125;) 2&gt; &#123;log&#125;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="指定线程数和资源"><a href="#指定线程数和资源" class="headerlink" title="指定线程数和资源"></a>指定线程数和资源</h3><ul>
+<li>指定线程数</li>
+</ul>
+<p>默认线程数为 1<br>使用 <code>snakemake --cores 10</code> 设置程序运行可用线程总数，如指定 <code>20</code> 个线程，假设 <code>bwa_map</code> 指定 <code>8</code> 个线程，则只会同时运行 <code>2</code> 个相同任务。 如果 <code>--cores</code> 后不加数值，默认为所有线程</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">rule bwa_map:</span><br><span class="line">    <span class="built_in">input</span>:</span><br><span class="line">        <span class="string">&quot;data/genome.fa&quot;</span>,</span><br><span class="line">        <span class="string">&quot;data/samples/&#123;sample&#125;.fastq&quot;</span></span><br><span class="line">    output:</span><br><span class="line">        <span class="string">&quot;mapped_reads/&#123;sample&#125;.bam&quot;</span></span><br><span class="line">    threads: <span class="number">8</span></span><br><span class="line">    shell:</span><br><span class="line">        <span class="string">&quot;bwa mem -t &#123;threads&#125; &#123;input&#125; | samtools view -Sb - &gt; &#123;output&#125;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>指定资源</li>
+</ul>
+<p>可以用 <code>mem_mb</code>, <code>disk_mb</code> 指定不同类型的资源使用</p>
+<p>默认资源设置为 不受限<br>使用 <code>snakemake --resources mem_mb=100</code> 设置程序运行可用总资源数。可添加 <code>--restart-times n</code> 参数设置使程序失败后自动重新尝试运行 <code>n</code> 次</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rule:</span><br><span class="line">    <span class="built_in">input</span>:     ...</span><br><span class="line">    output:    ...</span><br><span class="line">    resources:</span><br><span class="line">        mem_mb=<span class="number">100</span></span><br><span class="line">    shell:</span><br><span class="line">        <span class="string">&quot;...&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="使用系统-module-等同-linux-module-load-xx"><a href="#使用系统-module-等同-linux-module-load-xx" class="headerlink" title="使用系统 module (等同 linux: module load xx)"></a>使用系统 module (等同 linux: module load xx)</h3><p>如使用<a target="_blank" rel="noopener" href="https://snakemake.readthedocs.io/en/stable/snakefiles/deployment.html#using-environment-modules">该功能</a>，需添加 <code>--use-envmodules</code> 参数<br>该方法会降低流程的可移植性，谨慎使用。 或者使用 <code>conda</code> 替代（使用<code>conda</code>需确定集群是否支持外部联网）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">rule bwa:</span><br><span class="line">    <span class="built_in">input</span>:</span><br><span class="line">        <span class="string">&quot;genome.fa&quot;</span></span><br><span class="line">    output:</span><br><span class="line">        <span class="string">&quot;mapped.bam&quot;</span></span><br><span class="line">    conda:</span><br><span class="line">        <span class="string">&quot;envs/bwa.yaml&quot;</span></span><br><span class="line">    envmodules:</span><br><span class="line">        <span class="string">&quot;bio/bwa/0.7.9&quot;</span>,</span><br><span class="line">    shell:</span><br><span class="line">        <span class="string">&quot;bwa mem &#123;input&#125; | samtools view -Sbh - &gt; &#123;output&#125;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="设置工作目录"><a href="#设置工作目录" class="headerlink" title="设置工作目录"></a>设置工作目录</h3><p>默认情况下，Snakemake 涉及到的所有路径均为当前执行路径的相对路径，可以使用 <code>workdir: &quot;path/to/workdir&quot;</code> 指定工作目录，该情况不常用，影响可移植性</p>
+<h3 id="生成报告文件"><a href="#生成报告文件" class="headerlink" title="生成报告文件"></a>生成报告文件</h3><p>版本要求: <code>&gt; 5.1</code></p>
+<p>生成报告文件方式: 程序运行结束后运行 <code>snakemake --report report.html</code>， 生成部分结果的报告文件 <code>snakemake result1.svg --report report-short.html</code></p>
+<p><a target="_blank" rel="noopener" href="https://snakemake.readthedocs.io/en/stable/snakefiles/reporting.html">报告文件</a>，包括：运行时间，配置参数，工作流拓扑结构，结果文件等。<a target="_blank" rel="noopener" href="https://koesterlab.github.io/resources/report.html">报告示例文件</a></p>
+<p>可通过在 <code>rule</code> 中添加 <code>report</code> 标签生成 <code>HTML</code> 格式的报告文件</p>
+<p>以下代码示例中的 <code>*rst</code> 文件内存储 报告标题、结果描述 等文本信息<br>使用 <code>category</code> 和 <code>subcategory</code> 对结果进行分组</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">report: <span class="string">&quot;report/workflow.rst&quot;</span></span><br><span class="line"></span><br><span class="line">rule <span class="built_in">all</span>:</span><br><span class="line">    <span class="built_in">input</span>:</span><br><span class="line">        [<span class="string">&quot;fig1.svg&quot;</span>, <span class="string">&quot;fig2.png&quot;</span>, <span class="string">&quot;testdir&quot;</span>]</span><br><span class="line"></span><br><span class="line">rule c:</span><br><span class="line">    output:</span><br><span class="line">        <span class="string">&quot;test.&#123;i&#125;.out&quot;</span></span><br><span class="line">    singularity:</span><br><span class="line">        <span class="string">&quot;docker://continuumio/miniconda3:4.4.10&quot;</span></span><br><span class="line">    conda:</span><br><span class="line">        <span class="string">&quot;envs/test.yaml&quot;</span></span><br><span class="line">    shell:</span><br><span class="line">        <span class="string">&quot;sleep `shuf -i 1-3 -n 1`; touch &#123;output&#125;&quot;</span></span><br><span class="line"></span><br><span class="line">rule a:</span><br><span class="line">    <span class="built_in">input</span>:</span><br><span class="line">        expand(<span class="string">&quot;test.&#123;i&#125;.out&quot;</span>, i=<span class="built_in">range</span>(<span class="number">10</span>))</span><br><span class="line">    output:</span><br><span class="line">        report(<span class="string">&quot;fig1.svg&quot;</span>, caption=<span class="string">&quot;report/fig1.rst&quot;</span>, category=<span class="string">&quot;Step 1&quot;</span>)</span><br><span class="line">    shell:</span><br><span class="line">        <span class="string">&quot;sleep `shuf -i 1-3 -n 1`; cp data/fig1.svg &#123;output&#125;&quot;</span></span><br><span class="line"></span><br><span class="line">rule b:</span><br><span class="line">    <span class="built_in">input</span>:</span><br><span class="line">        expand(<span class="string">&quot;&#123;model&#125;.&#123;i&#125;.out&quot;</span>, i=<span class="built_in">range</span>(<span class="number">10</span>))</span><br><span class="line">    output:</span><br><span class="line">        report(<span class="string">&quot;fig2.png&quot;</span>, caption=<span class="string">&quot;report/fig2.rst&quot;</span>, category=<span class="string">&quot;Step 2&quot;</span>, subcategory=<span class="string">&quot;&#123;model&#125;&quot;</span>)</span><br><span class="line">    shell:</span><br><span class="line">        <span class="string">&quot;sleep `shuf -i 1-3 -n 1`; cp data/fig2.png &#123;output&#125;&quot;</span></span><br><span class="line"></span><br><span class="line">rule d:</span><br><span class="line">    output:</span><br><span class="line">        report(directory(<span class="string">&quot;testdir&quot;</span>), patterns=[<span class="string">&quot;&#123;name&#125;.txt&quot;</span>], caption=<span class="string">&quot;report/somedata.rst&quot;</span>, category=<span class="string">&quot;Step 3&quot;</span>)</span><br><span class="line">    shell:</span><br><span class="line">        <span class="string">&quot;mkdir &#123;output&#125;; for i in 1 2 3; do echo $i &gt; &#123;output&#125;/$i.txt; done&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="生成测试数据集"><a href="#生成测试数据集" class="headerlink" title="生成测试数据集"></a>生成测试数据集</h3><p>在程序运行结束后，可通过运行 <code>snakemake --generate-unit-tests</code> 自动生成单元测试<br><code>Snakemake</code>被用于为每个规则执行一项代表性工作，并将其输入文件复制到隐藏的文件夹 <code>.tests/unit</code> 中。</p>
+<h2 id="工作流目录组织结构"><a href="#工作流目录组织结构" class="headerlink" title="工作流目录组织结构"></a>工作流目录组织结构</h2><p><a target="_blank" rel="noopener" href="https://snakemake.readthedocs.io/en/stable/snakefiles/deployment.html">推荐目录结构</a>：</p>
+<ul>
+<li>工作流信息存储在 <code>workflow</code> 文件夹内，主文件 <code>Snakefile</code> 内可引入各子规则，子规则（模块）文件推荐以 <code>smk</code> 后缀结尾</li>
+<li>配置信息存储在 <code>config</code> 文件夹内</li>
+<li>脚本信息存储在 <code>workflow/scripts</code> 文件夹内，存放工作流需要用到的自定义脚本</li>
+<li>笔记信息存储在 <code>workflow/notebooks</code> 文件夹内</li>
+<li>环境配置信息存储在 <code>workflow/envs</code> 文件夹内</li>
+<li>报告文件信息存储在 <code>workflow/report</code> 文件夹内</li>
+<li>所有结果文件均存储在 <code>results</code> 文件夹内，如涉及到查询结果可存储在 <code>resources</code> 文件夹内</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">├── .gitignore</span><br><span class="line">├── README.md</span><br><span class="line">├── LICENSE.md</span><br><span class="line">├── workflow</span><br><span class="line">│   ├── rules</span><br><span class="line">|   │   ├── module1.smk</span><br><span class="line">|   │   └── module2.smk</span><br><span class="line">│   ├── envs</span><br><span class="line">|   │   ├── tool1.yaml</span><br><span class="line">|   │   └── tool2.yaml</span><br><span class="line">│   ├── scripts</span><br><span class="line">|   │   ├── script1.py</span><br><span class="line">|   │   └── script2.R</span><br><span class="line">│   ├── notebooks</span><br><span class="line">|   │   ├── notebook1.py.ipynb</span><br><span class="line">|   │   └── notebook2.r.ipynb</span><br><span class="line">│   ├── report</span><br><span class="line">|   │   ├── plot1.rst</span><br><span class="line">|   │   └── plot2.rst</span><br><span class="line">|   └── Snakefile</span><br><span class="line">├── config</span><br><span class="line">│   ├── config.yaml</span><br><span class="line">│   └── some-sheet.tsv</span><br><span class="line">├── results</span><br><span class="line">└── resources</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%99%E7%A8%8B/" rel="tag"><i class="fa fa-tags"></i> 教程</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/03/01/physcial-genetic-map-collinear/" rel="prev" title="物理图谱-遗传图谱共线性">
+                  <i class="fa fa-chevron-left"></i> 物理图谱-遗传图谱共线性
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="grav"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">slbai</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>Symbols count total: </span>
+    <span title="Symbols count total">27k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>Reading time total &asymp;</span>
+    <span title="Reading time total">25 mins.</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      const visitors = document.querySelector('.leancloud_visitors');
+      const url = decodeURI(visitors.id);
+      const title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            const counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      const visitors = document.querySelectorAll('.leancloud_visitors');
+      const entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            const target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    const { app_id, app_key, server_url } = {"enable":true,"app_id":"czHc3JxHseJ4rr0qB3b7hYMI-9Nh9j0Va","app_key":"4e3KogD22VpvHTOKEBlTDlAb","server_url":null,"security":true};
+    function fetchData(api_server) {
+      const Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    const api_server = app_id.slice(-9) === '-MdYXbMMI' ? `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com` : server_url;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+</body>
+</html>
