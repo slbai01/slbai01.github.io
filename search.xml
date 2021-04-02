@@ -563,4 +563,40 @@
         <tag>教程</tag>
       </tags>
   </entry>
+  <entry>
+    <title>开源全平台适配免费密码管理工具-bitwarden</title>
+    <url>/2021/04/02/password-manager-tools/</url>
+    <content><![CDATA[<p>俗话说得好，枪杆子要握在自己手里才放心。最近发现了 <a href="https://bitwarden.com/">bitwarden</a> + <a href="https://cloud.tencent.com/">腾讯云</a> 自建库方案，可以实现较低成本（几乎免费）进行密码管理，且拥有高级会员功能。</p>
+<p>个人对密码管理方案有以下几点要求：</p>
+<a id="more"></a>
+
+<ol>
+<li>安全，稳定（所有软件均<strong>宣称</strong>安全）</li>
+<li>可自定义编辑（常用多账号备忘录，Apple 钥匙串、Google Chrome 密码管理、Microsoft Authenticator等大厂开发软件均不具备该功能-2021/04/02。）</li>
+<li>配置简洁（PASS 本地+第三方云同步方案）</li>
+<li>可迁移性（一键导入导出，基本所有软件均支持）</li>
+<li>全平台适用 (ios, chrome extension, macOS. [Windows, Android])</li>
+<li>费用较低</li>
+</ol>
+<p>主流密码管理软件<a href="https://www.softwaretestinghelp.com/best-password-managers/">功能对比</a>：</p>
+<p><img src="https://raw.githubusercontent.com/slbai01/picture/main/img/password-manager-tools-compare.jpg" alt="password-manager-tools-compare"></p>
+<p>综合以上要求，icloud + <a href="https://1password.com/zh-cn/">1password</a> 成为了首选，1password 为业内大哥，搭配 icloud 白嫖 apple 设备全平台同步，缺点是只能在 ios 端录入和修改信息，并且最近浏览器每次密码填充都会跳出登录账号界面，遂放弃该方案。</p>
+<p>近段时间在<strong>阿虚同学</strong>微信公众号内（原文题目：用了4年密码管理神器KeePass，结果一试Bitwarden就回不去了！？）发现 <a href="https://bitwarden.com/">bitwarden</a> + <a href="https://cloud.tencent.com/">腾讯云</a> 方案符合上述各方面要求，配置完之后使用体验不错。</p>
+<h2 id="服务部署"><a href="#服务部署" class="headerlink" title="服务部署"></a>服务部署</h2><ol>
+<li>注册<a href="https://cloud.tencent.com/">腾讯云</a>账号</li>
+<li>注册好之后登录，点击左上角产品 -&gt; 基础 -&gt; 云开发 -&gt; 云开发 CloudBase</li>
+<li>点击界面内的<code>免费开通</code>，在弹出的页面，新建一个环境，并点击更多，找到腾讯云提供的 <code>Bitwarden 一键搭建服务</code>，随后根据提示填写资料</li>
+<li>新用户在填写资料时可以勾选 <em>开启免费资源</em>，享受白嫖的快乐</li>
+<li>云部署约需 5-10 分钟，如果部署失败，或者部署后点击<code>访问</code>无法进入，重新部署几遍即可</li>
+<li>注册账号（该账号与 bitwarden 官方账号不同，这个是基于自建服务下的独立账号系统）</li>
+<li>进入登陆界面后点击左上角 <strong>齿轮⚙️</strong>，在自托管环境中输入上一步<code>访问</code>中的路径地址，保存后输入上一步注册的账号密码即可。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>效率工具</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+      </tags>
+  </entry>
 </search>

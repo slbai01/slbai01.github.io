@@ -24,20 +24,23 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"slbai01.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":3,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="随笔">
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="https://slbai01.github.io/tags/index.html">
+<meta name="description" content="俗话说得好，枪杆子要握在自己手里才放心。最近发现了 bitwarden + 腾讯云 自建库方案，可以实现较低成本（几乎免费）进行密码管理，且拥有高级会员功能。 个人对密码管理方案有以下几点要求：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开源全平台适配免费密码管理工具-bitwarden">
+<meta property="og:url" content="https://slbai01.github.io/2021/04/02/password-manager-tools/index.html">
 <meta property="og:site_name" content="slbai&#39;s Blog">
-<meta property="og:description" content="随笔">
+<meta property="og:description" content="俗话说得好，枪杆子要握在自己手里才放心。最近发现了 bitwarden + 腾讯云 自建库方案，可以实现较低成本（几乎免费）进行密码管理，且拥有高级会员功能。 个人对密码管理方案有以下几点要求：">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-12-22T07:51:41.000Z">
-<meta property="article:modified_time" content="2020-12-22T07:52:27.707Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/slbai01/picture/main/img/password-manager-tools-compare.jpg">
+<meta property="article:published_time" content="2021-04-02T07:48:18.000Z">
+<meta property="article:modified_time" content="2021-04-02T09:08:14.893Z">
 <meta property="article:author" content="slbai">
+<meta property="article:tag" content="教程">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/slbai01/picture/main/img/password-manager-tools-compare.jpg">
 
 
-<link rel="canonical" href="https://slbai01.github.io/tags/">
+<link rel="canonical" href="https://slbai01.github.io/2021/04/02/password-manager-tools/">
 
 
 <script class="page-configurations">
@@ -45,12 +48,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
-<title>tags | slbai's Blog
-</title>
+<title>开源全平台适配免费密码管理工具-bitwarden | slbai's Blog</title>
   
 
 
@@ -174,7 +176,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -187,6 +189,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2"><span class="nav-number">1.</span> <span class="nav-text">服务部署</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -249,43 +252,149 @@
 </noscript>
 
 
-    <div class="main-inner page posts-expand">
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
   
   
 
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://slbai01.github.io/2021/04/02/password-manager-tools/">
 
-    
-    
-    
-    <div class="post-block" lang="en"><header class="post-header">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="slbai">
+      <meta itemprop="description" content="随笔">
+    </span>
 
-<h1 class="post-title" itemprop="name headline">tags
-</h1>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="slbai's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          开源全平台适配免费密码管理工具-bitwarden
+        </h1>
 
-<div class="post-meta-container">
-</div>
-
-</header>
-
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
       
-      
-      <div class="post-body"><div class="tag-cloud">
-  <div class="tag-cloud-title">
-    9 tags in total
-  </div>
-  <div class="tag-cloud-tags">
-    <a href="/tags/LSF/" style="font-size: 12px;" class="tag-cloud-0">LSF</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80/" style="font-size: 18px;" class="tag-cloud-3">Linux基础</a> <a href="/tags/%E4%BD%9C%E4%B8%9A%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" style="font-size: 12px;" class="tag-cloud-0">作业管理系统</a> <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" style="font-size: 24px;" class="tag-cloud-7">博客搭建</a> <a href="/tags/%E5%9F%BA%E5%9B%A0%E6%B3%A8%E9%87%8A/" style="font-size: 18px;" class="tag-cloud-3">基因注释</a> <a href="/tags/%E6%89%8B%E5%B7%A5%E7%9F%AB%E6%AD%A3/" style="font-size: 12px;" class="tag-cloud-0">手工矫正</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 30px;" class="tag-cloud-10">教程</a> <a href="/tags/%E6%96%87%E7%8C%AE%E7%AE%A1%E7%90%86/" style="font-size: 18px;" class="tag-cloud-3">文献管理</a> <a href="/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/" style="font-size: 12px;" class="tag-cloud-0">软件安装</a>
-  </div>
-</div>
 
+      <time title="Created: 2021-04-02 15:48:18 / Modified: 17:08:14" itemprop="dateCreated datePublished" datetime="2021-04-02T15:48:18+08:00">2021-04-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">效率工具</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/04/02/password-manager-tools/" class="post-meta-item leancloud_visitors" data-flag-title="开源全平台适配免费密码管理工具-bitwarden" title="Views">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
       </div>
-      
-      
-      
+      <div class="post-meta">
+    <span class="post-meta-item" title="Symbols count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Symbols count in article: </span>
+      <span>814</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>1 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>俗话说得好，枪杆子要握在自己手里才放心。最近发现了 <a target="_blank" rel="noopener" href="https://bitwarden.com/">bitwarden</a> + <a target="_blank" rel="noopener" href="https://cloud.tencent.com/">腾讯云</a> 自建库方案，可以实现较低成本（几乎免费）进行密码管理，且拥有高级会员功能。</p>
+<p>个人对密码管理方案有以下几点要求：</p>
+<a id="more"></a>
+
+<ol>
+<li>安全，稳定（所有软件均<strong>宣称</strong>安全）</li>
+<li>可自定义编辑（常用多账号备忘录，Apple 钥匙串、Google Chrome 密码管理、Microsoft Authenticator等大厂开发软件均不具备该功能-2021/04/02。）</li>
+<li>配置简洁（PASS 本地+第三方云同步方案）</li>
+<li>可迁移性（一键导入导出，基本所有软件均支持）</li>
+<li>全平台适用 (ios, chrome extension, macOS. [Windows, Android])</li>
+<li>费用较低</li>
+</ol>
+<p>主流密码管理软件<a target="_blank" rel="noopener" href="https://www.softwaretestinghelp.com/best-password-managers/">功能对比</a>：</p>
+<p><img src="https://raw.githubusercontent.com/slbai01/picture/main/img/password-manager-tools-compare.jpg" alt="password-manager-tools-compare"></p>
+<p>综合以上要求，icloud + <a target="_blank" rel="noopener" href="https://1password.com/zh-cn/">1password</a> 成为了首选，1password 为业内大哥，搭配 icloud 白嫖 apple 设备全平台同步，缺点是只能在 ios 端录入和修改信息，并且最近浏览器每次密码填充都会跳出登录账号界面，遂放弃该方案。</p>
+<p>近段时间在<strong>阿虚同学</strong>微信公众号内（原文题目：用了4年密码管理神器KeePass，结果一试Bitwarden就回不去了！？）发现 <a target="_blank" rel="noopener" href="https://bitwarden.com/">bitwarden</a> + <a target="_blank" rel="noopener" href="https://cloud.tencent.com/">腾讯云</a> 方案符合上述各方面要求，配置完之后使用体验不错。</p>
+<h2 id="服务部署"><a href="#服务部署" class="headerlink" title="服务部署"></a>服务部署</h2><ol>
+<li>注册<a target="_blank" rel="noopener" href="https://cloud.tencent.com/">腾讯云</a>账号</li>
+<li>注册好之后登录，点击左上角产品 -&gt; 基础 -&gt; 云开发 -&gt; 云开发 CloudBase</li>
+<li>点击界面内的<code>免费开通</code>，在弹出的页面，新建一个环境，并点击更多，找到腾讯云提供的 <code>Bitwarden 一键搭建服务</code>，随后根据提示填写资料</li>
+<li>新用户在填写资料时可以勾选 <em>开启免费资源</em>，享受白嫖的快乐</li>
+<li>云部署约需 5-10 分钟，如果部署失败，或者部署后点击<code>访问</code>无法进入，重新部署几遍即可</li>
+<li>注册账号（该账号与 bitwarden 官方账号不同，这个是基于自建服务下的独立账号系统）</li>
+<li>进入登陆界面后点击左上角 <strong>齿轮⚙️</strong>，在自托管环境中输入上一步<code>访问</code>中的路径地址，保存后输入上一步注册的账号密码即可。</li>
+</ol>
+
     </div>
 
     
     
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%99%E7%A8%8B/" rel="tag"><i class="fa fa-tags"></i> 教程</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/03/16/snakemake-tutorial-chinese/" rel="prev" title="Snakemake流程管理工具非官方不完全使用教程">
+                  <i class="fa fa-chevron-left"></i> Snakemake流程管理工具非官方不完全使用教程
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
 
 
 
