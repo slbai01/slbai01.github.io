@@ -566,7 +566,10 @@
   <entry>
     <title>开源全平台适配免费密码管理工具-bitwarden</title>
     <url>/2021/04/02/password-manager-tools/</url>
-    <content><![CDATA[<p>俗话说得好，枪杆子要握在自己手里才放心。最近发现了 <a href="https://bitwarden.com/">bitwarden</a> + <a href="https://cloud.tencent.com/">腾讯云</a> 自建库方案，可以实现较低成本（几乎免费）进行密码管理，且拥有高级会员功能。</p>
+    <content><![CDATA[<p>2021-04-30更新：由于bitwarden官方更新架构，原腾讯云部署项目无法登陆，与技术支持沟通后无法解决。弃用该方法！！！</p>
+<p>Ps: bitwarden 官方服务仍可用。</p>
+<p>===============</p>
+<p>俗话说得好，枪杆子要握在自己手里才放心。最近发现了 <a href="https://bitwarden.com/">bitwarden</a> + <a href="https://cloud.tencent.com/">腾讯云</a> 自建库方案，可以实现较低成本（几乎免费）进行密码管理，且拥有高级会员功能。</p>
 <p>个人对密码管理方案有以下几点要求：</p>
 <a id="more"></a>
 
