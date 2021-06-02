@@ -24,18 +24,20 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"slbai01.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":3,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="随笔">
-<meta property="og:type" content="website">
+<meta name="description" content="查询区间内基因信息1. 获取对应基因组位置信息如查询 AX-110604864, AX-111546862 位点内基因信息。 根据 55K 芯片信息，获取序列信息 (对于多态位点，任选其一) 1234567891011# group1&gt;AX-110604864CAAGGTCCCATTTAGCTAGTTGCCGAGGTAAGCTCCGTGGATGACAGCTTCTTCTTGTCATGTGGCG">
+<meta property="og:type" content="article">
 <meta property="og:title" content="slbai&#39;s Blog">
-<meta property="og:url" content="https://slbai01.github.io/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/index.html">
+<meta property="og:url" content="https://slbai01.github.io/2021/04/13/%E6%9F%A5%E8%AF%A2%E5%8C%BA%E9%97%B4%E5%86%85%E5%9F%BA%E5%9B%A0%E4%BF%A1%E6%81%AF/index.html">
 <meta property="og:site_name" content="slbai&#39;s Blog">
-<meta property="og:description" content="随笔">
+<meta property="og:description" content="查询区间内基因信息1. 获取对应基因组位置信息如查询 AX-110604864, AX-111546862 位点内基因信息。 根据 55K 芯片信息，获取序列信息 (对于多态位点，任选其一) 1234567891011# group1&gt;AX-110604864CAAGGTCCCATTTAGCTAGTTGCCGAGGTAAGCTCCGTGGATGACAGCTTCTTCTTGTCATGTGGCG">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-04-13T08:15:20.892Z">
+<meta property="article:modified_time" content="2021-04-13T08:29:27.804Z">
 <meta property="article:author" content="slbai">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://slbai01.github.io/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/">
+<link rel="canonical" href="https://slbai01.github.io/2021/04/13/%E6%9F%A5%E8%AF%A2%E5%8C%BA%E9%97%B4%E5%86%85%E5%9F%BA%E5%9B%A0%E4%BF%A1%E6%81%AF/">
 
 
 <script class="page-configurations">
@@ -43,11 +45,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
-<title>Tag: 软件安装 | slbai's Blog</title>
+<title> | slbai's Blog</title>
   
 
 
@@ -171,7 +173,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -184,6 +186,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E5%8C%BA%E9%97%B4%E5%86%85%E5%9F%BA%E5%9B%A0%E4%BF%A1%E6%81%AF"><span class="nav-number">1.</span> <span class="nav-text">查询区间内基因信息</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E8%8E%B7%E5%8F%96%E5%AF%B9%E5%BA%94%E5%9F%BA%E5%9B%A0%E7%BB%84%E4%BD%8D%E7%BD%AE%E4%BF%A1%E6%81%AF"><span class="nav-number">1.1.</span> <span class="nav-text">1. 获取对应基因组位置信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E8%8E%B7%E5%8F%96%E5%8C%BA%E9%97%B4%E5%86%85%E5%9F%BA%E5%9B%A0%E4%BF%A1%E6%81%AF"><span class="nav-number">1.2.</span> <span class="nav-text">2. 获取区间内基因信息</span></a></li></ol></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -246,50 +249,151 @@
 </noscript>
 
 
-    <div class="main-inner tag posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
-  
-  
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <h2 class="collection-header">软件安装
-          <small>Tag</small>
-        </h2>
-      </div>
 
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://slbai01.github.io/2021/04/13/%E6%9F%A5%E8%AF%A2%E5%8C%BA%E9%97%B4%E5%86%85%E5%9F%BA%E5%9B%A0%E4%BF%A1%E6%81%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="slbai">
+      <meta itemprop="description" content="随笔">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="slbai's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
+
+      <time title="Created: 2021-04-13 16:15:20 / Modified: 16:29:27" itemprop="dateCreated datePublished" datetime="2021-04-13T16:15:20+08:00">2021-04-13</time>
+    </span>
+
+  
+    <span id="/2021/04/13/%E6%9F%A5%E8%AF%A2%E5%8C%BA%E9%97%B4%E5%86%85%E5%9F%BA%E5%9B%A0%E4%BF%A1%E6%81%AF/" class="post-meta-item leancloud_visitors" data-flag-title="" title="Views">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="Symbols count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Symbols count in article: </span>
+      <span>711</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>1 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="查询区间内基因信息"><a href="#查询区间内基因信息" class="headerlink" title="查询区间内基因信息"></a>查询区间内基因信息</h1><h2 id="1-获取对应基因组位置信息"><a href="#1-获取对应基因组位置信息" class="headerlink" title="1. 获取对应基因组位置信息"></a>1. 获取对应基因组位置信息</h2><p>如查询 AX-110604864, AX-111546862 位点内基因信息。</p>
+<p>根据 55K 芯片信息，获取序列信息 (对于多态位点，任选其一)</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># group1</span><br><span class="line">&gt;AX-110604864</span><br><span class="line">CAAGGTCCCATTTAGCTAGTTGCCGAGGTAAGCTCCGTGGATGACAGCTTCTTCTTGTCATGTGGCGAGCC</span><br><span class="line">&gt;AX-111546862</span><br><span class="line">TTTTACTACACTAAGGTGTTTTTATGTAATAGAGCACCGGCTCCGACGCTACTCTACTGCTCTTTGTGCGT</span><br><span class="line"></span><br><span class="line"># group2</span><br><span class="line">&gt;AX-110177050</span><br><span class="line">CTGACGGATCTGGGGCGATGGATGGAGAAGCTGGACATACATGGTGGCAACAACATCGTCTCCCATGCAGG</span><br><span class="line">&gt;AX-109104358</span><br><span class="line">TGGTGCAAGCGACATCGTAGCCCGGGTGGGGATCAAAACTGCATGATTTTCCCGTAGCTTTGTCGGTGAGC</span><br></pre></td></tr></table></figure>
+
+<p>在<a target="_blank" rel="noopener" href="http://10.12.2.249:4567/">节节麦基因组网站</a>进行blastn查询</p>
+<p>查询结果为：</p>
+<table>
+<thead>
+<tr>
+<th>ArrayID</th>
+<th>AX-110604864</th>
+<th>AX-111546862</th>
+<th>-</th>
+<th>AX-110177050</th>
+<th>AX-109104358</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>T093</td>
+<td>Chr4 4113168</td>
+<td>Chr4 3119203</td>
+<td>-</td>
+<td>Chr3 19255786</td>
+<td>Chr3 22041177</td>
+</tr>
+<tr>
+<td>AK58</td>
+<td>chr4D 4064411</td>
+<td>chr4D 3599881</td>
+<td>-</td>
+<td>chr3D 17829703</td>
+<td>chr3D 20351356</td>
+</tr>
+</tbody></table>
+<h2 id="2-获取区间内基因信息"><a href="#2-获取区间内基因信息" class="headerlink" title="2. 获取区间内基因信息"></a>2. 获取区间内基因信息</h2><p>根据起始位置从 <code>gff</code> 文件内使用 <code>awk</code> 提取基因ID即可<br>如无编程基础，可在<a target="_blank" rel="noopener" href="http://10.12.2.249:4567/">节节麦信息提取网站</a>提取基因信息。</p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2020-12-05T12:20:32+08:00"
-              content="2020-12-05">
-          12-05
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/12/05/MacOS-GitHub-Hexo-build-self-blog/" itemprop="url">
-            <span itemprop="name">MacOS GitHub+Hexo 搭建个人网站</span>
-          </a>
-      </div>
+    <footer class="post-footer">
 
-      
-    </header>
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/04/13/rshiny-usage-tips/" rel="prev" title="rshiny使用技巧">
+                  <i class="fa fa-chevron-left"></i> rshiny使用技巧
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/06/02/software-require-memory-runtime/" rel="next" title="常用软件需要的内存及运行时间">
+                  常用软件需要的内存及运行时间 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
+</div>
 
-    </div>
-  </div>
-  
-  
-  
+
+
+
+
 
 
 <script>

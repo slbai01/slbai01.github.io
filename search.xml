@@ -599,4 +599,196 @@
         <tag>教程</tag>
       </tags>
   </entry>
+  <entry>
+    <title>rshiny使用技巧</title>
+    <url>/2021/04/13/rshiny-usage-tips/</url>
+    <content><![CDATA[<p>点击阅读前文前, 首页能看到的文章的简短描述</p>
+<a id="more"></a>
+
+<h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><h3 id="结果缓冲条"><a href="#结果缓冲条" class="headerlink" title="结果缓冲条"></a>结果缓冲条</h3><p>适用于文字，图片，表格（网页，waiter支持）等的加载等待界面</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment"># waiter， One example, other see the document.</span></span><br><span class="line">library(shiny)</span><br><span class="line">library(waiter)</span><br><span class="line"></span><br><span class="line">ui &lt;- fluidPage(</span><br><span class="line">  use_waiter(), </span><br><span class="line">  waiter_show_on_load(html = spin_fading_circles()),</span><br><span class="line">  h3(<span class="string">&quot;Content you will only see after loading screen has disappeared&quot;</span>)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">server &lt;- <span class="keyword">function</span>(input, output, session)&#123;</span><br><span class="line">  Sys.sleep(<span class="number">3</span>) <span class="comment"># do something that takes time</span></span><br><span class="line">  waiter_hide()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">shinyApp(ui, server)</span><br><span class="line"></span><br><span class="line"><span class="comment"># shinycssloaders</span></span><br><span class="line">plotOutput(<span class="string">&quot;Test&quot;</span>) %&gt;% withSpinner(color=<span class="string">&quot;#0dc5c1&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>*Complete: <a href="https://github.com/JohnCoene/waiter">waiter</a>, <a href="https://waiter.john-coene.com/#/waiter">Document</a></p>
+<p>*Simply: <a href="https://github.com/daattali/shinycssloaders">shinycssloaders</a></p>
+<h2 id="install"><a href="#install" class="headerlink" title="install"></a>install</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">在 centos 账户下新建用户 rshiny</span><br><span class="line"></span><br><span class="line"><span class="comment"># 登陆账户</span></span><br><span class="line">sshpass -p <span class="string">&#x27;r-shiny&#x27;</span> ssh -p 22 rshiny@xx.xx.3.xxx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 处理 gcc 动态库报错</span></span><br><span class="line">sudo rm /usr/lib64/libstdc++.so.6</span><br><span class="line">sudo ln -s /home/bionano/miniconda3/lib/libstdc++.so.6 /usr/lib64/libstdc++.so.6</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装 R</span></span><br><span class="line">sudo yum install R</span><br><span class="line"><span class="comment"># 安装 shiny package</span></span><br><span class="line">install.packages(<span class="string">&#x27;shiny&#x27;</span>, repos=<span class="string">&#x27;http://mirror.lzu.edu.cn/CRAN/&#x27;</span>)</span><br><span class="line">install.packages(<span class="string">&#x27;rmarkdown&#x27;</span>, repos=<span class="string">&#x27;http://mirror.lzu.edu.cn/CRAN/&#x27;</span>)</span><br><span class="line">install.packages(<span class="string">&#x27;DT&#x27;</span>, repos=<span class="string">&#x27;http://mirror.lzu.edu.cn/CRAN/&#x27;</span>)</span><br><span class="line">install.packages(<span class="string">&#x27;ggplot2&#x27;</span>, repos=<span class="string">&#x27;http://mirror.lzu.edu.cn/CRAN/&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装 shiny-server</span></span><br><span class="line">wget https://download3.rstudio.org/centos6.3/x86_64/shiny-server-1.5.12.933-x86_64.rpm</span><br><span class="line">sudo yum install --nogpgcheck shiny-server-1.5.12.933-x86_64.rpm</span><br><span class="line"><span class="comment"># Created symlink from /etc/systemd/system/multi-user.target.wants/shiny-server.service to /etc/systemd/system/shiny-server.service. （该步骤自动完成，不需要手动配置）</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 文件地址</span></span><br><span class="line">/srv/shiny-server</span><br><span class="line">/var/<span class="built_in">log</span>/shiny-server.log</span><br><span class="line">/var/<span class="built_in">log</span>/shiny-server/*.<span class="built_in">log</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动服务</span></span><br><span class="line">sudo systemctl start shiny-server</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置文件地址</span></span><br><span class="line">sudo vi /etc/shiny-server/shiny-server.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 报错 An error has occurred The application failed to start. The application exited during initialization.</span></span><br><span class="line"><span class="comment"># 该情况可以打开 shiny 网页，但是不能访问 app</span></span><br><span class="line"><span class="comment"># https://github.com/rstudio/shiny-server/issues/153</span></span><br><span class="line">解决方案： </span><br><span class="line">  I did the following to get it running:</span><br><span class="line">  sudo gedit /etc/shiny-server/shiny-server.conf and <span class="keyword">then</span> changed run_as shiny to run_as username <span class="built_in">which</span> <span class="keyword">in</span> my <span class="keyword">case</span> is run_as agarwalnaimish.</span><br><span class="line">  sudo ufw allow 3838/tcp</span><br></pre></td></tr></table></figure>
+]]></content>
+  </entry>
+  <entry>
+    <title>常用软件需要的内存及运行时间</title>
+    <url>/2021/06/02/software-require-memory-runtime/</url>
+    <content><![CDATA[<p>列举常用生物信息学软件运行所需配置及时间。以下软件均在 <strong>植物逆境2020超算</strong> 测试运行。</p>
+<a id="more"></a>
+
+<table>
+<thead>
+<tr>
+<th>Main Command</th>
+<th>Suggest Queue</th>
+<th>Genome Size</th>
+<th>Max Memory</th>
+<th>Run time</th>
+<th>CPU time</th>
+<th>Use threads</th>
+<th>Test Date</th>
+<th>Command line</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em>Genome Index</em></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>bwa index</td>
+<td>normalAB</td>
+<td>wheat: 16 GB</td>
+<td>20832 MB</td>
+<td>21219 sec.</td>
+<td>21139.65 sec.</td>
+<td>1</td>
+<td>2021-04-23</td>
+<td>1</td>
+</tr>
+<tr>
+<td>bwa-mem2 index</td>
+<td>fatA</td>
+<td>wheat: 16 GB</td>
+<td>332993 MB</td>
+<td>6980 sec.</td>
+<td>7107.20 sec.</td>
+<td>1</td>
+<td>2021-04-23</td>
+<td>2</td>
+</tr>
+<tr>
+<td>gmap_build</td>
+<td>normalAB</td>
+<td>wheat: 16 GB</td>
+<td>23562 MB</td>
+<td>5625 sec.</td>
+<td>5885.13 sec.</td>
+<td>38</td>
+<td>2021-04-29</td>
+<td>3</td>
+</tr>
+<tr>
+<td>picard index</td>
+<td>normalAB</td>
+<td>wheat: 16 GB</td>
+<td>10554 MB</td>
+<td>119 sec.</td>
+<td>275.60 sec.</td>
+<td>1</td>
+<td>2021-04-23</td>
+<td>4</td>
+</tr>
+<tr>
+<td>STAR index</td>
+<td>fatA</td>
+<td>wheat: 16 GB</td>
+<td>376483 MB</td>
+<td>2 h</td>
+<td>56863.63 sec.</td>
+<td>10</td>
+<td>2019-03-18</td>
+<td>5 *</td>
+</tr>
+<tr>
+<td>hisat2-build</td>
+<td>fatA</td>
+<td>wheat: 16 GB</td>
+<td>1411660 MB</td>
+<td>17 h</td>
+<td>97269.76 sec.</td>
+<td>20</td>
+<td>2017-12-23</td>
+<td>6 *</td>
+</tr>
+<tr>
+<td>cellranger mkref</td>
+<td>normalAB</td>
+<td>maize: 2 GB</td>
+<td>38352 MB</td>
+<td>4702 sec.</td>
+<td>4819.96 sec.</td>
+<td>1</td>
+<td>2021-04-29</td>
+<td>7</td>
+</tr>
+<tr>
+<td>cellranger-atac mkref</td>
+<td>fatA</td>
+<td>maize: 2 GB</td>
+<td>3185 MB</td>
+<td>2121 sec.</td>
+<td>2111.98 sec.</td>
+<td>1</td>
+<td>2021-04-30</td>
+<td>8</td>
+</tr>
+</tbody></table>
+<h2 id="command-line"><a href="#command-line" class="headerlink" title="command line"></a>command line</h2><ol>
+<li><code>bwa index -p 161010_Chinese_Spring_v1.0_pseudomolecules.fasta 161010_Chinese_Spring_v1.0_pseudomolecules.fasta</code></li>
+<li><code>bwa-mem2 index -p 161010_Chinese_Spring_v1.0_pseudomolecules.fasta 161010_Chinese_Spring_v1.0_pseudomolecules.fasta</code></li>
+<li><code>~/.conda/envs/py2/bin/gmap_build -d 161010_Chinese_Spring_v1.0_pseudomolecules.fasta -D ./index 161010_Chinese_Spring_v1.0_pseudomolecules.fasta -t 38</code></li>
+<li><code>gatk CreateSequenceDictionary R=161010_Chinese_Spring_v1.0_pseudomolecules.fasta</code></li>
+<li><code>/share/home/baishenglong/programs/STAR-2.5.2b/bin/Linux_x86_64/STAR --runMode genomeGenerate --runThreadN 10 --limitGenomeGenerateRAM 1000000000000 --genomeDir /share/home/baishenglong/database/Triticum_aestivum/iwgsc_refseqv1.0/iwgsc_refseqv1.0_all_chromosomes --genomeFastaFiles 161010_Chinese_Spring_v1.0_pseudomolecules.fasta</code></li>
+<li><code>/share/home/baishenglong/programs/hisat2-2.0.5/hisat2-build -p 20 --ss iwgsc_refseqv1.0_HighConf_2017Mar13.ss --exon iwgsc_refseqv1.0_HighConf_2017Mar13.exon /share/home/baishenglong/database/Wheat_IWGSC_WGA_v1.0_pseudomolecules/161010_Chinese_Spring_v1.0_pseudomolecules.fasta 161010_Chinese_Spring_v1.0_pseudomolecules.fasta</code></li>
+<li><code>cellranger mkref --genome=maize-B73-v4_genome --fasta=reference.genome.fa --genes=reference.filtered.gtf --memgb=32</code></li>
+<li><code>cellranger-atac mkref maize-B73-v4_genome-atac --config maize-B73-v4-atac.config</code></li>
+</ol>
+]]></content>
+      <categories>
+        <category>生物信息学</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2021/04/13/%E6%9F%A5%E8%AF%A2%E5%8C%BA%E9%97%B4%E5%86%85%E5%9F%BA%E5%9B%A0%E4%BF%A1%E6%81%AF/</url>
+    <content><![CDATA[<h1 id="查询区间内基因信息"><a href="#查询区间内基因信息" class="headerlink" title="查询区间内基因信息"></a>查询区间内基因信息</h1><h2 id="1-获取对应基因组位置信息"><a href="#1-获取对应基因组位置信息" class="headerlink" title="1. 获取对应基因组位置信息"></a>1. 获取对应基因组位置信息</h2><p>如查询 AX-110604864, AX-111546862 位点内基因信息。</p>
+<p>根据 55K 芯片信息，获取序列信息 (对于多态位点，任选其一)</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line"># group1</span><br><span class="line">&gt;AX-110604864</span><br><span class="line">CAAGGTCCCATTTAGCTAGTTGCCGAGGTAAGCTCCGTGGATGACAGCTTCTTCTTGTCATGTGGCGAGCC</span><br><span class="line">&gt;AX-111546862</span><br><span class="line">TTTTACTACACTAAGGTGTTTTTATGTAATAGAGCACCGGCTCCGACGCTACTCTACTGCTCTTTGTGCGT</span><br><span class="line"></span><br><span class="line"># group2</span><br><span class="line">&gt;AX-110177050</span><br><span class="line">CTGACGGATCTGGGGCGATGGATGGAGAAGCTGGACATACATGGTGGCAACAACATCGTCTCCCATGCAGG</span><br><span class="line">&gt;AX-109104358</span><br><span class="line">TGGTGCAAGCGACATCGTAGCCCGGGTGGGGATCAAAACTGCATGATTTTCCCGTAGCTTTGTCGGTGAGC</span><br></pre></td></tr></table></figure>
+
+<p>在<a href="http://10.12.2.249:4567/">节节麦基因组网站</a>进行blastn查询</p>
+<p>查询结果为：</p>
+<table>
+<thead>
+<tr>
+<th>ArrayID</th>
+<th>AX-110604864</th>
+<th>AX-111546862</th>
+<th>-</th>
+<th>AX-110177050</th>
+<th>AX-109104358</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>T093</td>
+<td>Chr4 4113168</td>
+<td>Chr4 3119203</td>
+<td>-</td>
+<td>Chr3 19255786</td>
+<td>Chr3 22041177</td>
+</tr>
+<tr>
+<td>AK58</td>
+<td>chr4D 4064411</td>
+<td>chr4D 3599881</td>
+<td>-</td>
+<td>chr3D 17829703</td>
+<td>chr3D 20351356</td>
+</tr>
+</tbody></table>
+<h2 id="2-获取区间内基因信息"><a href="#2-获取区间内基因信息" class="headerlink" title="2. 获取区间内基因信息"></a>2. 获取区间内基因信息</h2><p>根据起始位置从 <code>gff</code> 文件内使用 <code>awk</code> 提取基因ID即可<br>如无编程基础，可在<a href="http://10.12.2.249:4567/">节节麦信息提取网站</a>提取基因信息。</p>
+]]></content>
+  </entry>
 </search>
