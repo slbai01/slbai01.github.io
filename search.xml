@@ -17,6 +17,9 @@
 <p><a href="https://scicomp.ethz.ch/wiki/Job_arrays">ref_link1</a></p>
 </blockquote>
 ]]></content>
+      <categories>
+        <category>linux进阶</category>
+      </categories>
       <tags>
         <tag>教程</tag>
         <tag>作业管理系统</tag>
@@ -735,6 +738,28 @@
 <td>2021-04-30</td>
 <td>8</td>
 </tr>
+<tr>
+<td><em>Others</em></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>orthofinder</td>
+<td>normalB</td>
+<td>-</td>
+<td>5798 MB</td>
+<td>18904 sec.</td>
+<td>155407.98 sec.</td>
+<td>16</td>
+<td>2020-08-12</td>
+<td>9</td>
+</tr>
 </tbody></table>
 <h2 id="command-line"><a href="#command-line" class="headerlink" title="command line"></a>command line</h2><ol>
 <li><code>bwa index -p 161010_Chinese_Spring_v1.0_pseudomolecules.fasta 161010_Chinese_Spring_v1.0_pseudomolecules.fasta</code></li>
@@ -745,6 +770,7 @@
 <li><code>/share/home/baishenglong/programs/hisat2-2.0.5/hisat2-build -p 20 --ss iwgsc_refseqv1.0_HighConf_2017Mar13.ss --exon iwgsc_refseqv1.0_HighConf_2017Mar13.exon /share/home/baishenglong/database/Wheat_IWGSC_WGA_v1.0_pseudomolecules/161010_Chinese_Spring_v1.0_pseudomolecules.fasta 161010_Chinese_Spring_v1.0_pseudomolecules.fasta</code></li>
 <li><code>cellranger mkref --genome=maize-B73-v4_genome --fasta=reference.genome.fa --genes=reference.filtered.gtf --memgb=32</code></li>
 <li><code>cellranger-atac mkref maize-B73-v4_genome-atac --config maize-B73-v4-atac.config</code></li>
+<li><code>orthofinder -f ./ -t 16</code></li>
 </ol>
 ]]></content>
       <categories>
@@ -793,5 +819,66 @@
 </tbody></table>
 <h2 id="2-获取区间内基因信息"><a href="#2-获取区间内基因信息" class="headerlink" title="2. 获取区间内基因信息"></a>2. 获取区间内基因信息</h2><p>根据起始位置从 <code>gff</code> 文件内使用 <code>awk</code> 提取基因ID即可<br>如无编程基础，可在<a href="http://10.12.2.249:4567/">节节麦信息提取网站</a>提取基因信息。</p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>LSF常用命令</title>
+    <url>/2021/06/08/LSF-common-use-command-line/</url>
+    <content><![CDATA[<h2 id="任务提交"><a href="#任务提交" class="headerlink" title="任务提交"></a>任务提交</h2><ul>
+<li>指定任务依赖<ul>
+<li>依赖单个job：<code>-w jobid</code></li>
+<li>同时依赖多个job：<code>bsub -w &quot;done(226197)&amp;&amp;done(226198)&quot; command-line</code></li>
+</ul>
+</li>
+<li>提交任务便捷别名 <code>alias bsubt=&#39;bsub -q normalB -e lsf.err -o lsf.out -R &quot;span[hosts=1]&quot; &#39;</code></li>
+</ul>
+<a id="more"></a>
+
+<h2 id="任务挂起与恢复"><a href="#任务挂起与恢复" class="headerlink" title="任务挂起与恢复"></a>任务挂起与恢复</h2><ul>
+<li>挂起的运行中的作业将终止计算，但作业进程并不结束</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">bstop jobid</span><br><span class="line">bkill -s STOP <span class="comment">#不推荐使用，任务挂起后仍会占用系统资源</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将挂起的作业恢复</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">bresume jobid</span><br><span class="line">bkill -s CONT <span class="comment">#不推荐使用，任务挂起后仍会占用系统资源</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>不同的挂起状态</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">PSUSP    作业在排队中时被挂起。</span><br><span class="line">USUSP    作业在计算过程中时被挂起。</span><br><span class="line">SSUSP    作业被LSF作业调度系统挂起，</span><br></pre></td></tr></table></figure>
+
+<h2 id="终止任务"><a href="#终止任务" class="headerlink" title="终止任务"></a>终止任务</h2><ul>
+<li><p>终止所有运行中的任务 <code>bkill 0</code></p>
+</li>
+<li><p>终止单个任务 <code>bkill jobid</code></p>
+</li>
+</ul>
+<h2 id="修改任务依赖关系"><a href="#修改任务依赖关系" class="headerlink" title="修改任务依赖关系"></a>修改任务依赖关系</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">bmod -w 341348 329606</span><br><span class="line"><span class="comment">#Parameters of job &lt;329606&gt; are being changed</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="提交任务到单一节点"><a href="#提交任务到单一节点" class="headerlink" title="提交任务到单一节点"></a>提交任务到单一节点</h2><p><code>-R &quot;span[hosts=1]&quot;</code></p>
+<h2 id="修改队列内包含节点信息"><a href="#修改队列内包含节点信息" class="headerlink" title="修改队列内包含节点信息"></a>修改队列内包含节点信息</h2><blockquote>
+<p><a href="http://cgm.sjtu.edu.cn/index/pub/courses/2019/omics/OpenLava-taskmanagement-intro20170214v3.pdf">ref. link</a></p>
+</blockquote>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">lsb.queues</span><br><span class="line">所在目录：$LSF_TOP/lsbatch/$clustername/configdir</span><br><span class="line">此文件用来配置lsf队列信息。</span><br><span class="line"></span><br><span class="line">若修改上述文件需执行</span><br><span class="line">badmin reconfig</span><br><span class="line">使之生效</span><br></pre></td></tr></table></figure>
+
+<h2 id="提交job-array"><a href="#提交job-array" class="headerlink" title="提交job array"></a>提交job array</h2><blockquote>
+<p><a href="https://scicomp.ethz.ch/wiki/Job_arrays">ref. link</a></p>
+</blockquote>
+<p><a href="https://slbai01.github.io/2020/12/07/LSF-job-array/">LSF作业管理系统提交job array</a></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Example1</span></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> `seq 1 7`; <span class="keyword">do</span> <span class="comment"># 按染色体去冗余</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;grep \&quot;^chr<span class="variable">$&#123;x&#125;</span>D\&quot; *tsv | cut -d &#x27;:&#x27; -f 2 | sort -k2n | uniq &gt; merge.chr<span class="variable">$&#123;x&#125;</span>D_depth0.tsv&quot;</span></span><br><span class="line"><span class="keyword">done</span> &gt; redup.sh</span><br><span class="line">bsub -J <span class="string">&quot;testjob[1-7]&quot;</span> -q rock -n 1 -R <span class="string">&quot;span[hosts=1]&quot;</span> <span class="string">&quot;awk -v jindex=\$LSB_JOBINDEX &#x27;NR==jindex&#x27; redup.sh | bash&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Example2</span></span><br><span class="line">module load BamDeal/0.24</span><br><span class="line">bsubt <span class="string">&quot;mkdir split_bam; BamDeal modify bamSplit -l round1.fofn -o split_bam;&quot;</span></span><br><span class="line"><span class="comment"># 更改输入文件格式为数字</span></span><br><span class="line">jobid=0</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> `ls split_bam/*`; <span class="keyword">do</span></span><br><span class="line">  jobid=$((<span class="variable">$jobid</span>+<span class="number">1</span>))</span><br><span class="line">  <span class="built_in">echo</span> -e <span class="string">&quot;<span class="variable">$jobid</span>\t <span class="variable">$x</span>&quot;</span> &gt;&gt; split_bam/correspond.txt</span><br><span class="line">  mv <span class="variable">$x</span> split_bam/<span class="variable">$jobid</span>.bam</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">bsubt -J <span class="string">&quot;index[1-<span class="variable">$jobid</span>]&quot;</span> pbindex split_bam/\<span class="variable">$&#123;LSB_JOBINDEX&#125;</span>.bam</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><blockquote>
+<p><a href="https://www.racf.bnl.gov/docs/sw/lsf/lsfquickref51">main ref.</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>linux进阶</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+        <tag>作业管理系统</tag>
+        <tag>LSF</tag>
+      </tags>
   </entry>
 </search>
