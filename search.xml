@@ -885,7 +885,7 @@
       </tags>
   </entry>
   <entry>
-    <title>software-management-Environment_Modules.md</title>
+    <title>环境变量管理工具-Environment Modules</title>
     <url>/2021/12/07/software-management-Environment-Modules/</url>
     <content><![CDATA[<p><code>module</code>是一款环境变量管理工具，常用语高性能计算平台。通过module进行环境变量的管理，通过module avail可查看已安装的软件环境。</p>
 <h2 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">module <span class="built_in">help</span>       <span class="comment"># 显示帮助信息</span></span><br><span class="line">module avail      <span class="comment"># 显示已经安装的软件环境</span></span><br><span class="line">module load       <span class="comment"># 导入相应的软件环境</span></span><br><span class="line">module unload     <span class="comment"># 删除相应的软件环境</span></span><br><span class="line">module list       <span class="comment"># 列出已经导入的软件环境</span></span><br><span class="line">module purge      <span class="comment"># 清除所有已经导入的软件环境</span></span><br><span class="line">module switch [mod1] mod2 <span class="comment"># 删除mod1并导入mod2</span></span><br></pre></td></tr></table></figure>
