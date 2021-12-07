@@ -884,4 +884,44 @@
         <tag>LSF</tag>
       </tags>
   </entry>
+  <entry>
+    <title>software-management-Environment_Modules.md</title>
+    <url>/2021/12/07/software-management-Environment-Modules/</url>
+    <content><![CDATA[<p><code>module</code>是一款环境变量管理工具，常用语高性能计算平台。通过module进行环境变量的管理，通过module avail可查看已安装的软件环境。</p>
+<h2 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">module <span class="built_in">help</span>       <span class="comment"># 显示帮助信息</span></span><br><span class="line">module avail      <span class="comment"># 显示已经安装的软件环境</span></span><br><span class="line">module load       <span class="comment"># 导入相应的软件环境</span></span><br><span class="line">module unload     <span class="comment"># 删除相应的软件环境</span></span><br><span class="line">module list       <span class="comment"># 列出已经导入的软件环境</span></span><br><span class="line">module purge      <span class="comment"># 清除所有已经导入的软件环境</span></span><br><span class="line">module switch [mod1] mod2 <span class="comment"># 删除mod1并导入mod2</span></span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<p>注 : 建议不要同时module load 多个软件，因为不同软件间可能是有冲突的。比较好的方式是module load 一个或一组相互依赖的软件，软件运行完后运行module purge清除导入的环境，然后再导入另外一个或一组相互依赖的软件。</p>
+<h2 id="编写自己的modulefile"><a href="#编写自己的modulefile" class="headerlink" title="编写自己的modulefile"></a>编写自己的modulefile</h2><p>部分用户可能会希望将自己的软件环境加到module中进行管理，可以按以下方法操作。</p>
+<ul>
+<li>Step 1：创建目录来存放modulefile；</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">mkdir <span class="variable">$&#123;HOME&#125;</span>/.mymodulefiles   <span class="comment"># 创建目录用于放自己的module file</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;export MODULEPATH=<span class="variable">$&#123;HOME&#125;</span>/.mymodulefiles:\$MODULEPATH&quot;</span> &gt;&gt; ~/.bash_profile</span><br><span class="line"><span class="built_in">source</span> ~/.bash_profile <span class="comment"># 或者退出重新登录即可</span></span><br><span class="line"><span class="comment"># 以下开始编写自己的第一个module file</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$&#123;HOME&#125;</span>/.mymodulefiles</span><br><span class="line">vim myfirstmodulefile</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Step 2：编写modulefile；</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#%Module -*- tcl -*-</span></span><br><span class="line"><span class="comment">## This is a module to access something</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示 module help 主要内容</span></span><br><span class="line">proc ModulesHelp &#123; &#125; &#123;</span><br><span class="line">        puts stderr <span class="string">&quot;This module sets up access to something&quot;</span> </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示 module whatis 显示主要内容</span></span><br><span class="line">module-whatis <span class="string">&quot;sets up access to something&quot;</span></span><br><span class="line"><span class="comment"># module 加载前需要模块类</span></span><br><span class="line">prereq module_flag</span><br><span class="line"><span class="comment"># module 加载冲突模块类</span></span><br><span class="line">conflict another_module_flag</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载其他模块</span></span><br><span class="line">module load gcc</span><br><span class="line"><span class="comment"># 设置环境变量</span></span><br><span class="line">setenv       SOMEVERION       0.95</span><br><span class="line"><span class="comment"># 添加环境变量</span></span><br><span class="line">append-path  PATH             /home/[user]/[somedir]/bin</span><br><span class="line">append-path  MANPATH          /home/[user]/[somedir]/man</span><br><span class="line">append-path  LD_LIBRARY_PATH  /home/[user]/[somedir]/lib</span><br></pre></td></tr></table></figure>
+
+<p>编写好后执行module avail即可查看到刚刚写好的modulefile了</p>
+<ul>
+<li>modulefile常见语法;</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">set</span>           <span class="comment"># 设置modulefile内部的变量</span></span><br><span class="line">setenv        <span class="comment"># 设置环境变量</span></span><br><span class="line">prepend-path  <span class="comment"># 效果类似于export PATH=xxx:$PATH</span></span><br><span class="line">append-path   <span class="comment"># 效果类似export PATH=$PATH:xxx</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>module 常用目录结构</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">.</span><br><span class="line">├── cmake</span><br><span class="line">│   └── 3.8.0</span><br><span class="line">├── compiler</span><br><span class="line">│   └── intel</span><br><span class="line">│       └── 2018.1.163</span><br><span class="line">└── mpi</span><br><span class="line">    ├── gnu</span><br><span class="line">    │   ├── mpich2</span><br><span class="line">    │   │   └── 3.2.1</span><br><span class="line">    │   └── openmpi</span><br><span class="line">    │       └── 3.1.3</span><br><span class="line">    ├── intel</span><br><span class="line">    │   ├── intel_mpi</span><br><span class="line">    │   │   └── 2018.1.163</span><br><span class="line">    │   ├── mpich2</span><br><span class="line">    │   └── openmpi</span><br><span class="line">    │       └── 3.1.3</span><br><span class="line">    └── mpich2</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://hpc.pku.edu.cn/_book/guide/soft_env/module.html">hpc_pku</a><br><a href="https://zhuanlan.zhihu.com/p/50725572">https://zhuanlan.zhihu.com/p/50725572</a></p>
+]]></content>
+      <categories>
+        <category>linux进阶</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+        <tag>软件安装</tag>
+      </tags>
+  </entry>
 </search>

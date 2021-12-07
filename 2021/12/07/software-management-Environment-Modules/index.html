@@ -24,22 +24,22 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"slbai01.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":3,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="参考 官方教程文档 即可，含有中文教程。">
+<meta name="description" content="软件环境管理软件 module 配置">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PicGo + GitHub 搭建个人图床工具">
-<meta property="og:url" content="https://slbai01.github.io/2021/01/13/picture-storage/index.html">
+<meta property="og:title" content="software-management-Environment_Modules.md">
+<meta property="og:url" content="https://slbai01.github.io/2021/12/07/software-management-Environment-Modules/index.html">
 <meta property="og:site_name" content="slbai&#39;s Blog">
-<meta property="og:description" content="参考 官方教程文档 即可，含有中文教程。">
+<meta property="og:description" content="软件环境管理软件 module 配置">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-01-13T03:58:52.000Z">
-<meta property="article:modified_time" content="2021-01-13T04:05:02.754Z">
+<meta property="article:published_time" content="2021-12-07T08:18:49.000Z">
+<meta property="article:modified_time" content="2021-12-07T08:38:20.757Z">
 <meta property="article:author" content="slbai">
 <meta property="article:tag" content="教程">
-<meta property="article:tag" content="博客搭建">
+<meta property="article:tag" content="软件安装">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://slbai01.github.io/2021/01/13/picture-storage/">
+<link rel="canonical" href="https://slbai01.github.io/2021/12/07/software-management-Environment-Modules/">
 
 
 <script class="page-configurations">
@@ -51,7 +51,7 @@
     lang   : 'en'
   };
 </script>
-<title>PicGo + GitHub 搭建个人图床工具 | slbai's Blog</title>
+<title>software-management-Environment_Modules.md | slbai's Blog</title>
   
 
 
@@ -175,7 +175,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -188,6 +188,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">常用指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E8%87%AA%E5%B7%B1%E7%9A%84modulefile"><span class="nav-number">2.</span> <span class="nav-text">编写自己的modulefile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -261,7 +262,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://slbai01.github.io/2021/01/13/picture-storage/">
+    <link itemprop="mainEntityOfPage" href="https://slbai01.github.io/2021/12/07/software-management-Environment-Modules/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -274,7 +275,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          PicGo + GitHub 搭建个人图床工具
+          software-management-Environment_Modules.md
         </h1>
 
         <div class="post-meta-container">
@@ -286,11 +287,20 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2021-01-13 11:58:52 / Modified: 12:05:02" itemprop="dateCreated datePublished" datetime="2021-01-13T11:58:52+08:00">2021-01-13</time>
+      <time title="Created: 2021-12-07 16:18:49 / Modified: 16:38:20" itemprop="dateCreated datePublished" datetime="2021-12-07T16:18:49+08:00">2021-12-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/linux%E8%BF%9B%E9%98%B6/" itemprop="url" rel="index"><span itemprop="name">linux进阶</span></a>
+        </span>
     </span>
 
   
-    <span id="/2021/01/13/picture-storage/" class="post-meta-item leancloud_visitors" data-flag-title="PicGo + GitHub 搭建个人图床工具" title="Views">
+    <span id="/2021/12/07/software-management-Environment-Modules/" class="post-meta-item leancloud_visitors" data-flag-title="software-management-Environment_Modules.md" title="Views">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -311,17 +321,18 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>18</span>
+      <span>1.7k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>1 mins.</span>
+      <span>2 mins.</span>
     </span>
 </div>
 
+            <div class="post-description">软件环境管理软件 module 配置</div>
         </div>
       </header>
 
@@ -329,8 +340,34 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>参考 <a target="_blank" rel="noopener" href="https://picgo.github.io/PicGo-Doc/zh/guide/config.html#github%E5%9B%BE%E5%BA%8A">官方教程文档</a> 即可，含有中文教程。</p>
+        <p><code>module</code>是一款环境变量管理工具，常用语高性能计算平台。通过module进行环境变量的管理，通过module avail可查看已安装的软件环境。</p>
+<h2 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">module <span class="built_in">help</span>       <span class="comment"># 显示帮助信息</span></span><br><span class="line">module avail      <span class="comment"># 显示已经安装的软件环境</span></span><br><span class="line">module load       <span class="comment"># 导入相应的软件环境</span></span><br><span class="line">module unload     <span class="comment"># 删除相应的软件环境</span></span><br><span class="line">module list       <span class="comment"># 列出已经导入的软件环境</span></span><br><span class="line">module purge      <span class="comment"># 清除所有已经导入的软件环境</span></span><br><span class="line">module switch [mod1] mod2 <span class="comment"># 删除mod1并导入mod2</span></span><br></pre></td></tr></table></figure>
+
 <a id="more"></a>
+<p>注 : 建议不要同时module load 多个软件，因为不同软件间可能是有冲突的。比较好的方式是module load 一个或一组相互依赖的软件，软件运行完后运行module purge清除导入的环境，然后再导入另外一个或一组相互依赖的软件。</p>
+<h2 id="编写自己的modulefile"><a href="#编写自己的modulefile" class="headerlink" title="编写自己的modulefile"></a>编写自己的modulefile</h2><p>部分用户可能会希望将自己的软件环境加到module中进行管理，可以按以下方法操作。</p>
+<ul>
+<li>Step 1：创建目录来存放modulefile；</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mkdir <span class="variable">$&#123;HOME&#125;</span>/.mymodulefiles   <span class="comment"># 创建目录用于放自己的module file</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;export MODULEPATH=<span class="variable">$&#123;HOME&#125;</span>/.mymodulefiles:\$MODULEPATH&quot;</span> &gt;&gt; ~/.bash_profile</span><br><span class="line"><span class="built_in">source</span> ~/.bash_profile <span class="comment"># 或者退出重新登录即可</span></span><br><span class="line"><span class="comment"># 以下开始编写自己的第一个module file</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$&#123;HOME&#125;</span>/.mymodulefiles</span><br><span class="line">vim myfirstmodulefile</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Step 2：编写modulefile；</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#%Module -*- tcl -*-</span></span><br><span class="line"><span class="comment">## This is a module to access something</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示 module help 主要内容</span></span><br><span class="line">proc ModulesHelp &#123; &#125; &#123;</span><br><span class="line">        puts stderr <span class="string">&quot;This module sets up access to something&quot;</span> </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示 module whatis 显示主要内容</span></span><br><span class="line">module-whatis <span class="string">&quot;sets up access to something&quot;</span></span><br><span class="line"><span class="comment"># module 加载前需要模块类</span></span><br><span class="line">prereq module_flag</span><br><span class="line"><span class="comment"># module 加载冲突模块类</span></span><br><span class="line">conflict another_module_flag</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载其他模块</span></span><br><span class="line">module load gcc</span><br><span class="line"><span class="comment"># 设置环境变量</span></span><br><span class="line">setenv       SOMEVERION       0.95</span><br><span class="line"><span class="comment"># 添加环境变量</span></span><br><span class="line">append-path  PATH             /home/[user]/[somedir]/bin</span><br><span class="line">append-path  MANPATH          /home/[user]/[somedir]/man</span><br><span class="line">append-path  LD_LIBRARY_PATH  /home/[user]/[somedir]/lib</span><br></pre></td></tr></table></figure>
+
+<p>编写好后执行module avail即可查看到刚刚写好的modulefile了</p>
+<ul>
+<li>modulefile常见语法;</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span>           <span class="comment"># 设置modulefile内部的变量</span></span><br><span class="line">setenv        <span class="comment"># 设置环境变量</span></span><br><span class="line">prepend-path  <span class="comment"># 效果类似于export PATH=xxx:$PATH</span></span><br><span class="line">append-path   <span class="comment"># 效果类似export PATH=$PATH:xxx</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>module 常用目录结构</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── cmake</span><br><span class="line">│   └── 3.8.0</span><br><span class="line">├── compiler</span><br><span class="line">│   └── intel</span><br><span class="line">│       └── 2018.1.163</span><br><span class="line">└── mpi</span><br><span class="line">    ├── gnu</span><br><span class="line">    │   ├── mpich2</span><br><span class="line">    │   │   └── 3.2.1</span><br><span class="line">    │   └── openmpi</span><br><span class="line">    │       └── 3.1.3</span><br><span class="line">    ├── intel</span><br><span class="line">    │   ├── intel_mpi</span><br><span class="line">    │   │   └── 2018.1.163</span><br><span class="line">    │   ├── mpich2</span><br><span class="line">    │   └── openmpi</span><br><span class="line">    │       └── 3.1.3</span><br><span class="line">    └── mpich2</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://hpc.pku.edu.cn/_book/guide/soft_env/module.html">hpc_pku</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/50725572">https://zhuanlan.zhihu.com/p/50725572</a></p>
 
     </div>
 
@@ -341,21 +378,18 @@
     <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/%E6%95%99%E7%A8%8B/" rel="tag"><i class="fa fa-tags"></i> 教程</a>
-              <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag"><i class="fa fa-tags"></i> 博客搭建</a>
+              <a href="/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/" rel="tag"><i class="fa fa-tags"></i> 软件安装</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/01/13/tmux-usage/" rel="prev" title="终端复用工具tmux使用方法">
-                  <i class="fa fa-chevron-left"></i> 终端复用工具tmux使用方法
+                <a href="/2021/06/08/LSF-common-use-command-line/" rel="prev" title="LSF常用命令">
+                  <i class="fa fa-chevron-left"></i> LSF常用命令
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/01/22/mapman-usage/" rel="next" title="mapman使用简介">
-                  mapman使用简介 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
