@@ -559,7 +559,6 @@
 <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">├── .gitignore</span><br><span class="line">├── README.md</span><br><span class="line">├── LICENSE.md</span><br><span class="line">├── workflow</span><br><span class="line">│   ├── rules</span><br><span class="line">|   │   ├── module1.smk</span><br><span class="line">|   │   └── module2.smk</span><br><span class="line">│   ├── envs</span><br><span class="line">|   │   ├── tool1.yaml</span><br><span class="line">|   │   └── tool2.yaml</span><br><span class="line">│   ├── scripts</span><br><span class="line">|   │   ├── script1.py</span><br><span class="line">|   │   └── script2.R</span><br><span class="line">│   ├── notebooks</span><br><span class="line">|   │   ├── notebook1.py.ipynb</span><br><span class="line">|   │   └── notebook2.r.ipynb</span><br><span class="line">│   ├── report</span><br><span class="line">|   │   ├── plot1.rst</span><br><span class="line">|   │   └── plot2.rst</span><br><span class="line">|   └── Snakefile</span><br><span class="line">├── config</span><br><span class="line">│   ├── config.yaml</span><br><span class="line">│   └── some-sheet.tsv</span><br><span class="line">├── results</span><br><span class="line">└── resources</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>生物信息学</category>
         <category>linux进阶</category>
       </categories>
       <tags>
