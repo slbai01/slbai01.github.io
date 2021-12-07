@@ -923,4 +923,36 @@
         <tag>软件安装</tag>
       </tags>
   </entry>
+  <entry>
+    <title>git使用简介</title>
+    <url>/2021/12/07/git-usage-tips/</url>
+    <content><![CDATA[<p><strong>使用网络查阅Git命令时一定要非常小心，否则会造成不会恢复的后果！</strong></p>
+<a id="more"></a>
+
+<h2 id="常规步骤"><a href="#常规步骤" class="headerlink" title="常规步骤"></a>常规步骤</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 个人信息设置，只需进行一次</span></span><br><span class="line">git config --global user.name <span class="string">&quot;你的用户名&quot;</span></span><br><span class="line">git config --global user.name <span class="string">&quot;slbai&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;你的邮箱地址&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;slbai01@foxmail.com&quot;</span></span><br><span class="line"><span class="comment"># 新建仓库 （会生成.git文件）</span></span><br><span class="line">git init </span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加文件</span></span><br><span class="line">git add .gitignore</span><br><span class="line">git add -A  <span class="comment">#提交所有变化</span></span><br><span class="line">git add -f file1 <span class="comment"># 强制提交 gitignore 忽略的文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 提交文件</span></span><br><span class="line">git commit -m <span class="string">&quot;ignore .head file&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 推送文件</span></span><br><span class="line">git push origin master</span><br><span class="line">git push -u origin master (第一次推送)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 本地文件夹转为git仓库并连接远程仓库</span></span><br><span class="line"><span class="comment"># 初始化本地仓库（文件夹内可以有内容）</span></span><br><span class="line">git init</span><br><span class="line"><span class="comment"># 链接远程仓库 （需要先在远程建立一个仓库）</span></span><br><span class="line">git remote add origin git@bitbucket.org:slbai/xxx.git </span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除远程仓库链接</span></span><br><span class="line">git remote rm origin</span><br><span class="line"></span><br><span class="line"><span class="comment"># 撤销git add</span></span><br><span class="line">git reset HEAD . <span class="comment"># 撤销所有的已经add的文件</span></span><br><span class="line"><span class="comment"># 当我们需要删除暂存区或分支上的文件, 同时工作区也不需要这个文件了, 可以使用</span></span><br><span class="line">git rm file_path</span><br><span class="line"><span class="comment"># 当我们需要删除暂存区或分支上的文件, 但本地又需要使用, 只是不希望这个文件被版本控制, 可以使用</span></span><br><span class="line">git rm --cached file_path</span><br><span class="line"></span><br><span class="line"><span class="comment"># 撤销 commit</span></span><br><span class="line">git reset --soft HEAD^ <span class="comment"># 撤销上次</span></span><br><span class="line">git reset --soft HEAD~2 <span class="comment"># 撤销上两次</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># git push 免密码</span></span><br><span class="line"><span class="comment"># 一般是由于 remote 为https，修改为 SSH 即可</span></span><br><span class="line">git remote set-url origin git@github.com:slbai01/Aegilops_TE.git</span><br></pre></td></tr></table></figure>
+
+<h2 id="初始设置"><a href="#初始设置" class="headerlink" title="初始设置"></a>初始设置</h2><p><a href="https://confluence.atlassian.com/bitbucket/set-up-an-ssh-key-728138079.html#SetupanSSHkey-ssh2">ref</a></p>
+<ol>
+<li>注册bitbucket或github账号  </li>
+<li>在需要进行版本控制的电脑上生成id_rsa.pub文件  </li>
+<li>在bitbucket或github网站内添加id_rsa.pub  </li>
+<li>克隆或者新建仓库  </li>
+</ol>
+<h2 id="git仓库迁移"><a href="#git仓库迁移" class="headerlink" title="git仓库迁移"></a>git仓库迁移</h2><p><a href="https://gist.github.com/mandiwise/5954bbb2e95c011885ff">ref</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd $HOME/Code/repo-directory</span><br><span class="line">git remote rename origin bitbucket</span><br><span class="line">git remote add origin https://github.com/slbai01/xxx.git</span><br><span class="line"><span class="meta">#</span><span class="bash"> git remote add origin https://github.com/slbai01/cell-sorting-sun.git</span></span><br><span class="line">git push -u origin master</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="gitignore-规则"><a href="#gitignore-规则" class="headerlink" title=".gitignore 规则"></a>.gitignore 规则</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 忽略所有包含<span class="built_in">test</span>的文件</span></span><br><span class="line">*test*</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> .开头的任何文件</span></span><br><span class="line">.*</span><br><span class="line"><span class="meta">#</span><span class="bash"> 排除 .gitignore 本身</span></span><br><span class="line">!/.gitignore</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置免密提交"><a href="#配置免密提交" class="headerlink" title="配置免密提交"></a>配置免密提交</h2><p><a href="https://www.jianshu.com/p/28efda0555bb">ref</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 1. 生成公钥</span></span><br><span class="line">ssh-keygen -t rsa -C &quot;slbai01@foxmail.com&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 三次回车即可生成 ssh key</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2. 将公钥放到git平台上（github）</span></span><br><span class="line">cat ~/.ssh/id_rsa.pub   #打印出来的这段字符串就是公钥了</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 3. 修改配置</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 完成以上配置之后，提交代码时依然需要输入密码，是因为当前项目是以https协议克隆下来的，所以我们需要修改一下</span></span><br><span class="line">git config -e  #打开配置文件</span><br><span class="line">修改前：</span><br><span class="line">[remote &quot;origin&quot;]  </span><br><span class="line">    url = https://xxxx.git  </span><br><span class="line">    fetch = +refs/heads/*:refs/remotes/origin/*</span><br><span class="line"></span><br><span class="line">修改后：</span><br><span class="line"></span><br><span class="line">[remote &quot;origin&quot;]  </span><br><span class="line">    url = git@xxx.git    #这个地址，自行打开项目主页查看</span><br><span class="line">    fetch = +refs/heads/*:refs/remotes/origin/* </span><br><span class="line"></span><br><span class="line">至此，不再需要密码登陆了（当然前提是生成公钥的时候没弄错账号密码）</span><br></pre></td></tr></table></figure>
+
+<h2 id="提交时版本冲突"><a href="#提交时版本冲突" class="headerlink" title="提交时版本冲突"></a>提交时版本冲突</h2><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">1. git stash # 或在vscode内选择 储藏</span><br><span class="line">2. git push # 或在vscode内选择 拉取</span><br><span class="line">3. git stash pop # 或在vscode内选择 弹出储藏</span><br><span class="line">4. vscode会出现冲突文件夹，内解决冲突即可</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>linux进阶</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+      </tags>
+  </entry>
 </search>
