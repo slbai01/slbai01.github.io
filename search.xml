@@ -955,4 +955,28 @@
         <tag>教程</tag>
       </tags>
   </entry>
+  <entry>
+    <title>vscode常用配置</title>
+    <url>/2021/12/07/vscode-usage-tips/</url>
+    <content><![CDATA[<h2 id="配置-Remote-SSH"><a href="#配置-Remote-SSH" class="headerlink" title="配置 Remote SSH"></a>配置 Remote SSH</h2><ol>
+<li>配置免密登陆<br>将本地PC的公钥<code>cat ~/.ssh/id_rsa.pub</code>添加到远程服务器的<code>~/.ssh/authorized_keys</code>文件中即可。公钥可由<code>ssh-keygen</code>生成</li>
+<li>在远程商店中下载<code>Remote-SSH</code>插件</li>
+<li>在配置<code>/Users/slbai/.ssh/config</code>文件后面追加下列内容即可</li>
+</ol>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">Host baishenglong_wheatcenter</span><br><span class="line">    HostName 10.12.3.182</span><br><span class="line">    Port 22</span><br><span class="line">    User baishenglong</span><br><span class="line">    IdentityFile ~/.ssh/id_rsa</span><br></pre></td></tr></table></figure>
+
+<h2 id="代码片段支持markdown"><a href="#代码片段支持markdown" class="headerlink" title="代码片段支持markdown"></a>代码片段支持markdown</h2><p><a href="https://blog.csdn.net/serryuer/article/details/89393760">ref</a></p>
+<p>但是据笔者实验，只是上面的设置并不能实现Markdown文件编写时代码片段的快捷使用，我们还需要针对markdown类型文件进行具体的设置，打开settings.json settings.jsonsettings.json文件，添加如下配置：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">&quot;[markdown]&quot;: &#123;</span><br><span class="line">    &quot;editor.formatOnSave&quot;: true,</span><br><span class="line">    &quot;editor.renderWhitespace&quot;: &quot;all&quot;,</span><br><span class="line">    &quot;editor.quickSuggestions&quot;: &#123;</span><br><span class="line">        &quot;other&quot;: true,</span><br><span class="line">        &quot;comments&quot;: true,</span><br><span class="line">        &quot;strings&quot;: true</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;editor.acceptSuggestionOnEnter&quot;: &quot;on&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="显示行号"><a href="#显示行号" class="headerlink" title="显示行号"></a>显示行号</h2><p>vscode 支持显示，但是bitbucket不支持</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">\```shell &#123;class=\&quot;line-numbers\&quot;&#125;</span><br><span class="line">text</span><br><span class="line">\```</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>linux进阶</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+      </tags>
+  </entry>
 </search>
