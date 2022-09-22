@@ -413,6 +413,12 @@
 <li>服务器间传输文件</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 从当前目录拷贝到远程路径 </span></span><br><span class="line">/public/home/song/database/ 为当前目录，后面为目标（远程）目录</span><br><span class="line">rsync -rP --rsh=ssh /public/home/song/database/ sunguiling@10.12.253.66:/share/home/sunguiling/ZhiWuNiJing/database/B73/hisat_build/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置host后，可使用该命令进行</span></span><br><span class="line">scp local_file slbai:remote_path</span><br><span class="line">scp Ppatens_318_v3.fa  slbai:/home/slbai/database/Physcomitrella_patens/JGI_v3.3/assembly</span><br><span class="line"></span><br><span class="line">配置文件为: /share/home/baishenglong/.ssh/config</span><br><span class="line">配置内容为:</span><br><span class="line">StrictHostKeyChecking no</span><br><span class="line">Host slbai</span><br><span class="line">    Hostname 10.12.7.88</span><br><span class="line">    User slbai</span><br><span class="line">    ForwardX11 yes</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>cp/rsync 无法保留时间戳等信息</p>
+<p>将 u盘/硬盘 格式化为 <code>xfs</code> 格式即可</p>
+</li>
+</ul>
 ]]></content>
       <categories>
         <category>Linux基础</category>
@@ -974,6 +980,126 @@
 ]]></content>
       <categories>
         <category>linux进阶</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>fastq压缩方法总结</title>
+    <url>/2022/09/21/compress-fastq/</url>
+    <content><![CDATA[<p>出于笔者研究背景，本博文仅考虑无参压缩，暂不考虑总结有参压缩方法。</p>
+<h2 id="二代数据压缩"><a href="#二代数据压缩" class="headerlink" title="二代数据压缩"></a>二代数据压缩</h2><p><a href="https://doi.org/10.1093/bioinformatics/bty1015">SPRING: a next-generation compressor for FASTQ data. 2018, Bioinformatics</a></p>
+<table>
+<thead>
+<tr>
+<th>Organism</th>
+<th>Technology</th>
+<th>Coverage</th>
+<th>Uncompressed</th>
+<th>Lossless mode</th>
+<th>–</th>
+<th>–</th>
+<th>–</th>
+<th>Recommended lossy mode</th>
+<th>–</th>
+<th>–</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>–</td>
+<td>–</td>
+<td>–</td>
+<td>Size</td>
+<td><strong>pigz</strong></td>
+<td><strong>FaStore</strong></td>
+<td><strong>SPRING</strong></td>
+<td>Improvement</td>
+<td>FaStore</td>
+<td>SPRING</td>
+<td>Improvement</td>
+</tr>
+<tr>
+<td>P. aeruginosa</td>
+<td>GAIIx</td>
+<td>50</td>
+<td>768</td>
+<td>279     (31s)</td>
+<td>145    (35s)</td>
+<td>115    (23s)</td>
+<td>1.26</td>
+<td>88     (28s)</td>
+<td>62     (27s)</td>
+<td>1.41×</td>
+</tr>
+<tr>
+<td>Metagenomic</td>
+<td>HiSeq 2000</td>
+<td>––</td>
+<td>19,284</td>
+<td>6,911   (4m38s)</td>
+<td>3,602  (7m)</td>
+<td>3,206  (10m)</td>
+<td>1.12×</td>
+<td>1,935  (5m)</td>
+<td>1,736  (10m)</td>
+<td>1.11×</td>
+</tr>
+<tr>
+<td>H.sapiens</td>
+<td>HiSeq 2000</td>
+<td>28</td>
+<td>227,246</td>
+<td>74,250  (49m)</td>
+<td>35,662 (1h19m)</td>
+<td>28,901 (2h30m)</td>
+<td>1.23×</td>
+<td>17,417 (1h)</td>
+<td>13,460 (2h32m)</td>
+<td>1.29×</td>
+</tr>
+<tr>
+<td>H.sapiens</td>
+<td>NovaSeq</td>
+<td>25</td>
+<td>195,748</td>
+<td>36,131  (33m)</td>
+<td>11,101 (58m)</td>
+<td>6,971  (2h)</td>
+<td>1.59×</td>
+<td>9,927  (53m)</td>
+<td>5,657  (2h13m)</td>
+<td>1.75×</td>
+</tr>
+<tr>
+<td>H.sapiens</td>
+<td>NovaSeq</td>
+<td>100</td>
+<td>787,616</td>
+<td>144,927 (2h17m)</td>
+<td>33,734 (4h10m)</td>
+<td>25,883 (6h39m)</td>
+<td>1.30×</td>
+<td>28,846 (3h50m)</td>
+<td>20,316 (7h33m)</td>
+<td>1.42×</td>
+</tr>
+</tbody></table>
+<p>Compression times. All tools were run with 8 threads.</p>
+<p><a href="https://github.com/OpenGene/repaq">repaq</a>：未正式发表，暂不考虑</p>
+<p><a href="https://github.com/Genetalks/gtz">GTX.Zip</a>: 部分收费，暂不考虑。v4.0.x版本可免费使用压缩及解压功能，当使用达到6个月或压缩量(按压缩后统计)达到1TB时，软件将停止提供压缩功能，解压功能可继续使用，需要重新下载才可以重新使用压缩功能。</p>
+<ul>
+<li>run SPRING</li>
+</ul>
+<p><a href="https://github.com/shubhamchandak94/SPRING">SPRING</a></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">conda create -n spring -c conda-forge -c bioconda spring</span><br><span class="line"></span><br><span class="line">module load software/spring/v1.1.0</span><br><span class="line"><span class="comment"># lossless compress</span></span><br><span class="line">spring -c -i file_1.fastq file_2.fastq -o file.spring -t 16</span><br><span class="line">spring -c -i file_1.fastq.gz file_2.fastq.gz -o file.spring -g -t 16</span><br><span class="line"></span><br><span class="line"><span class="comment"># lossy compress</span></span><br><span class="line">spring -c -i file_1.fastq file_2.fastq -r --no-ids -q binary 20 40 6 -o file.spring</span><br><span class="line"></span><br><span class="line"><span class="comment"># Decompressing</span></span><br><span class="line">spring -d -i file.spring -o file_1.fastq.gz file_2.fastq.gz -g</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="三代数据压缩"><a href="#三代数据压缩" class="headerlink" title="三代数据压缩"></a>三代数据压缩</h2><p>TODO</p>
+<p><a href="https://www.nature.com/articles/s41592-022-01432-3">CoLoRd: compressing long reads</a></p>
+]]></content>
+      <categories>
+        <category>生物信息学</category>
+        <category>效率工具</category>
       </categories>
       <tags>
         <tag>教程</tag>

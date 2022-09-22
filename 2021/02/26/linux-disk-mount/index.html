@@ -32,7 +32,7 @@
 <meta property="og:description" content="1234lsblk # 查看磁盘是否正确插入，如果正常则会显示 sdb &#x2F; sdc 等mount &#x2F;dev&#x2F;sdc1 &#x2F;mnt&#x2F;disk2sdc1 # 挂载磁盘umount &#x2F;mnt&#x2F;disk2sdc1 # 推出磁盘nohup rsync -avP &#x2F;mnt&#x2F;disk3&#x2F;F20FTSCCWLJ4097_WHEojlR&#x2F;* .&#x2F; &amp; # 拷贝文件">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-02-26T03:02:18.000Z">
-<meta property="article:modified_time" content="2021-02-26T03:18:00.295Z">
+<meta property="article:modified_time" content="2022-09-20T12:31:52.704Z">
 <meta property="article:author" content="slbai">
 <meta property="article:tag" content="教程">
 <meta property="article:tag" content="Linux基础">
@@ -202,14 +202,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -286,10 +286,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2021-02-26 11:02:18 / Modified: 11:18:00" itemprop="dateCreated datePublished" datetime="2021-02-26T11:02:18+08:00">2021-02-26</time>
+      <time title="Created: 2021-02-26 11:02:18" itemprop="dateCreated datePublished" datetime="2021-02-26T11:02:18+08:00">2021-02-26</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2022-09-20 20:31:52" itemprop="dateModified" datetime="2022-09-20T20:31:52+08:00">2022-09-20</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -322,7 +328,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>624</span>
+      <span>659</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
@@ -348,6 +354,12 @@
 <li>服务器间传输文件</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从当前目录拷贝到远程路径 </span></span><br><span class="line">/public/home/song/database/ 为当前目录，后面为目标（远程）目录</span><br><span class="line">rsync -rP --rsh=ssh /public/home/song/database/ sunguiling@10.12.253.66:/share/home/sunguiling/ZhiWuNiJing/database/B73/hisat_build/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置host后，可使用该命令进行</span></span><br><span class="line">scp local_file slbai:remote_path</span><br><span class="line">scp Ppatens_318_v3.fa  slbai:/home/slbai/database/Physcomitrella_patens/JGI_v3.3/assembly</span><br><span class="line"></span><br><span class="line">配置文件为: /share/home/baishenglong/.ssh/config</span><br><span class="line">配置内容为:</span><br><span class="line">StrictHostKeyChecking no</span><br><span class="line">Host slbai</span><br><span class="line">    Hostname 10.12.7.88</span><br><span class="line">    User slbai</span><br><span class="line">    ForwardX11 yes</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>cp/rsync 无法保留时间戳等信息</p>
+<p>将 u盘/硬盘 格式化为 <code>xfs</code> 格式即可</p>
+</li>
+</ul>
 
     </div>
 
@@ -415,7 +427,7 @@
 
 <div class="copyright">
   &copy; 2020 – 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="grav"></i>
   </span>
@@ -427,14 +439,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Symbols count total: </span>
-    <span title="Symbols count total">39k</span>
+    <span title="Symbols count total">40k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Reading time total &asymp;</span>
-    <span title="Reading time total">35 mins.</span>
+    <span title="Reading time total">37 mins.</span>
   </span>
 </div>
 <div class="busuanzi-count">
