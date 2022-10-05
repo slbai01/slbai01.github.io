@@ -198,7 +198,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -211,7 +211,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -249,6 +249,232 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://slbai01.github.io/2022/10/05/SLURM-common-use-command-line/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="slbai">
+      <meta itemprop="description" content="随笔">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="slbai's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/10/05/SLURM-common-use-command-line/" class="post-title-link" itemprop="url">SLURM常用命令</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-10-05 16:31:30 / Modified: 17:10:36" itemprop="dateCreated datePublished" datetime="2022-10-05T16:31:30+08:00">2022-10-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/linux%E8%BF%9B%E9%98%B6/" itemprop="url" rel="index"><span itemprop="name">linux进阶</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2022/10/05/SLURM-common-use-command-line/" class="post-meta-item leancloud_visitors" data-flag-title="SLURM常用命令" title="Views">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="Symbols count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Symbols count in article: </span>
+      <span>491</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>1 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="任务提交"><a href="#任务提交" class="headerlink" title="任务提交"></a>任务提交</h2><p>快捷提交命令<code>sbatcht &lt;&quot;commond&quot;&gt;</code></p>
+<ul>
+<li>指定任务依赖<ul>
+<li>依赖单个job：<code>--dependency=&quot;afterok:1900100&quot;</code></li>
+<li>依赖多个job：<code>--dependency=&quot;afterok:1900100:1900101&quot;</code></li>
+</ul>
+</li>
+<li>提交任务便捷别名 <code>alias sbatcht=&#39;sbatch -q normal -n 1 --job-name tmp1 -e slurm.err -o slurm.out --wrap &#39;</code></li>
+</ul>
+<h2 id="查看任务状态"><a href="#查看任务状态" class="headerlink" title="查看任务状态"></a>查看任务状态</h2><p><code>scontrol show jobid=xx</code></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/10/05/SLURM-common-use-command-line/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://slbai01.github.io/2022/09/24/one-step-varitation-calling-pipeline-grenepipe/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="slbai">
+      <meta itemprop="description" content="随笔">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="slbai's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/09/24/one-step-varitation-calling-pipeline-grenepipe/" class="post-title-link" itemprop="url">使用 grenepipe 流程进行 DNA-变异检测</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-09-24 10:46:04" itemprop="dateCreated datePublished" datetime="2022-09-24T10:46:04+08:00">2022-09-24</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2022-10-05 17:22:31" itemprop="dateModified" datetime="2022-10-05T17:22:31+08:00">2022-10-05</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">生物信息学</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2022/09/24/one-step-varitation-calling-pipeline-grenepipe/" class="post-meta-item leancloud_visitors" data-flag-title="使用 grenepipe 流程进行 DNA-变异检测" title="Views">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="Symbols count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Symbols count in article: </span>
+      <span>3.4k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>3 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><a target="_blank" rel="noopener" href="https://doi.org/10.1093/bioinformatics/btac600">grenepipe: A flexible, scalable, and reproducible pipeline to automate variant calling from sequence reads.</a>. Lucas Czech and Moises Exposito-Alonso. Bioinformatics. 2022.</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/moiexpositoalonsolab/grenepipe">grenepipe</a>: 一个灵活、可扩展、可重复的变异检测流程</p>
+<p>常用操作：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">conda activate grenepipe</span><br><span class="line">script_path=/cluster/home/baishenglong/softwares/grenepipe-0.10.0</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> WORK_PATH</span><br><span class="line"><span class="comment"># 生成 samples 信息</span></span><br><span class="line"><span class="variable">$script_path</span>/tools/generate-table.py ./01_prepare_data/paired samples.tsv</span><br><span class="line"><span class="comment"># Summary:</span></span><br><span class="line"><span class="comment"># Found xxx mates.</span></span><br><span class="line"><span class="comment"># Found xxx singles.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># restrict-regions: &quot;&quot;    该字段表示需要保留的 bed 区段，如使用该字段，contig-group-size 必须设置为 “contig-group-size: 0”</span></span><br><span class="line"><span class="comment"># gatk-variantfiltration: 默认参数： SNP: &quot;QD &lt; 2.0 || FS &gt; 60.0 || MQ &lt; 40.0 || MQRankSum &lt; -12.5 || ReadPosRankSum &lt; -8.0&quot;, INDEL: &quot;QD &lt; 2.0 || FS &gt; 200.0 || ReadPosRankSum &lt; -20.0&quot;</span></span><br><span class="line">samples=<span class="variable">$PWD</span>/samples.tsv</span><br><span class="line">genome=/cluster/home/baishenglong/database/Triticum_aestivum/CS/v2.1/part_genome/wheat_CSv2.genome_part.subA.fa</span><br><span class="line">cat <span class="variable">$script_path</span>/config.yaml | \</span><br><span class="line">  sed <span class="string">&quot;s#samples: \&quot;/path/to/data/samples.tsv\&quot;#samples: \&quot;<span class="variable">$samples</span>\&quot;#g&quot;</span> | \</span><br><span class="line">  sed <span class="string">&quot;s#genome: \&quot;/path/to/data/genome.fa\&quot;#genome: \&quot;<span class="variable">$genome</span>\&quot;#g&quot;</span> | \</span><br><span class="line">  sed <span class="string">&#x27;s#trimming-tool: &quot;trimmomatic&quot;#trimming-tool: &quot;fastp&quot;#g&#x27;</span> | \</span><br><span class="line">  sed <span class="string">&#x27;s#mapping-tool: &quot;bwamem&quot;#mapping-tool: &quot;bwamem2&quot;#g&#x27;</span> | \</span><br><span class="line">  sed <span class="string">&#x27;s#contig-group-size: 0#contig-group-size: 500000000#g&#x27;</span> &gt; config.yaml</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不同物种 contig-group-size 适用值</span></span><br><span class="line"><span class="comment"># 小麦 part 版基因组： 500000000 # 保证每条 chr_part 单独 calling</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># modify $script_path/profiles/slurm/cluster_config.yaml to adapt large genome, 主要修改 CPU数、运行时间和内存限制</span></span><br><span class="line"><span class="comment"># modify $script_path/Snakefile to adapt large genome, 任务CPU 数目与集群配置文件一致</span></span><br><span class="line"><span class="comment"># modify $script_path/Snakefile to adapt large genome, 任务CPU 数目与集群配置文件一致</span></span><br><span class="line"><span class="comment"># modify $script_path/scripts/bwa-mem2-mem.py， 原脚本无法识别转换多线程参数</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># mean conda-prefix SNAKEMAKE_CONDA_PREFIX</span></span><br><span class="line">nohup snakemake --conda-frontend mamba --conda-prefix /cluster/home/baishenglong/.snakemake --snakefile <span class="variable">$script_path</span>/Snakefile --profile <span class="variable">$script_path</span>/profiles/slurm/ --directory ./ &amp;</span><br><span class="line"><span class="comment"># nohup snakemake --conda-frontend mamba --conda-prefix /cluster/home/baishenglong/.snakemake --snakefile $script_path/Snakefile --profile $script_path/profiles/slurm/ --directory ./ all_bams &amp;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/09/24/one-step-varitation-calling-pipeline-grenepipe/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1114,232 +1340,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://slbai01.github.io/2021/04/02/password-manager-tools/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="slbai">
-      <meta itemprop="description" content="随笔">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="slbai's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/02/password-manager-tools/" class="post-title-link" itemprop="url">开源全平台适配免费密码管理工具-bitwarden</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2021-04-02 15:48:18" itemprop="dateCreated datePublished" datetime="2021-04-02T15:48:18+08:00">2021-04-02</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-06-02 11:16:06" itemprop="dateModified" datetime="2021-06-02T11:16:06+08:00">2021-06-02</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">效率工具</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/2021/04/02/password-manager-tools/" class="post-meta-item leancloud_visitors" data-flag-title="开源全平台适配免费密码管理工具-bitwarden" title="Views">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">Views: </span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="Symbols count in article">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>914</span>
-    </span>
-    <span class="post-meta-item" title="Reading time">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>1 mins.</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>2021-04-30更新：由于bitwarden官方更新架构，原腾讯云部署项目无法登陆，与技术支持沟通后无法解决。弃用该方法！！！</p>
-<p>Ps: bitwarden 官方服务仍可用。</p>
-<p>===============</p>
-<p>俗话说得好，枪杆子要握在自己手里才放心。最近发现了 <a target="_blank" rel="noopener" href="https://bitwarden.com/">bitwarden</a> + <a target="_blank" rel="noopener" href="https://cloud.tencent.com/">腾讯云</a> 自建库方案，可以实现较低成本（几乎免费）进行密码管理，且拥有高级会员功能。</p>
-<p>个人对密码管理方案有以下几点要求：</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/04/02/password-manager-tools/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://slbai01.github.io/2021/03/16/snakemake-tutorial-chinese/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="slbai">
-      <meta itemprop="description" content="随笔">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="slbai's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/03/16/snakemake-tutorial-chinese/" class="post-title-link" itemprop="url">Snakemake流程管理工具非官方不完全使用教程</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2021-03-16 12:01:04" itemprop="dateCreated datePublished" datetime="2021-03-16T12:01:04+08:00">2021-03-16</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-12-07 17:59:26" itemprop="dateModified" datetime="2021-12-07T17:59:26+08:00">2021-12-07</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/linux%E8%BF%9B%E9%98%B6/" itemprop="url" rel="index"><span itemprop="name">linux进阶</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/2021/03/16/snakemake-tutorial-chinese/" class="post-meta-item leancloud_visitors" data-flag-title="Snakemake流程管理工具非官方不完全使用教程" title="Views">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">Views: </span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="Symbols count in article">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>12k</span>
-    </span>
-    <span class="post-meta-item" title="Reading time">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>11 mins.</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><a target="_blank" rel="noopener" href="https://snakemake.github.io/">Snakemake</a>:一个工作流管理系统，是创建可重现和可扩展的数据分析的工具。基于Python的人类可读语言来描述工作流。可以无需修改工作流程定义，无缝扩展到服务器、群集、网格和云环境。Snakemake工作流程可以根据需要描述所需的软件，该软件将自动部署到任何执行环境中。</p>
-<p>常用操作：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">snakemake -np <span class="comment"># 伪运行，只输出命令，常用于检查流程文件编写是否正确</span></span><br><span class="line">snakemake --dag | dot -Tpdf &gt; dag.pdf <span class="comment"># 生成DAG图</span></span><br><span class="line">nohup snakemake -j 100 --drmaa -s Snakefile --verbose -p &amp; <span class="comment"># 执行流程</span></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/03/16/snakemake-tutorial-chinese/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
@@ -1387,14 +1387,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Symbols count total: </span>
-    <span title="Symbols count total">40k</span>
+    <span title="Symbols count total">44k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Reading time total &asymp;</span>
-    <span title="Reading time total">37 mins.</span>
+    <span title="Reading time total">40 mins.</span>
   </span>
 </div>
 <div class="busuanzi-count">

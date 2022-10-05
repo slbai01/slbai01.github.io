@@ -29,7 +29,7 @@
   <entry>
     <title>MacOS GitHub+Hexo 搭建个人网站</title>
     <url>/2020/12/05/MacOS-GitHub-Hexo-build-self-blog/</url>
-    <content><![CDATA[<h2 id="1-Quick-publish-blog"><a href="#1-Quick-publish-blog" class="headerlink" title="1. Quick publish blog"></a>1. Quick publish blog</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo new &quot;postName&quot; #新建文章</span><br><span class="line">hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<h2 id="1-Quick-publish-blog"><a href="#1-Quick-publish-blog" class="headerlink" title="1. Quick publish blog"></a>1. Quick publish blog</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd ~/Documents/git_local/MyBlog/</span><br><span class="line">hexo new &quot;postName&quot; #新建文章</span><br><span class="line">hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
 
 <a id="more"></a>
 
@@ -1103,6 +1103,67 @@
       </categories>
       <tags>
         <tag>教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用 grenepipe 流程进行 DNA-变异检测</title>
+    <url>/2022/09/24/one-step-varitation-calling-pipeline-grenepipe/</url>
+    <content><![CDATA[<p><a href="https://doi.org/10.1093/bioinformatics/btac600">grenepipe: A flexible, scalable, and reproducible pipeline to automate variant calling from sequence reads.</a>. Lucas Czech and Moises Exposito-Alonso. Bioinformatics. 2022.</p>
+<p><a href="https://github.com/moiexpositoalonsolab/grenepipe">grenepipe</a>: 一个灵活、可扩展、可重复的变异检测流程</p>
+<p>常用操作：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">conda activate grenepipe</span><br><span class="line">script_path=/cluster/home/baishenglong/softwares/grenepipe-0.10.0</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> WORK_PATH</span><br><span class="line"><span class="comment"># 生成 samples 信息</span></span><br><span class="line"><span class="variable">$script_path</span>/tools/generate-table.py ./01_prepare_data/paired samples.tsv</span><br><span class="line"><span class="comment"># Summary:</span></span><br><span class="line"><span class="comment"># Found xxx mates.</span></span><br><span class="line"><span class="comment"># Found xxx singles.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># restrict-regions: &quot;&quot;    该字段表示需要保留的 bed 区段，如使用该字段，contig-group-size 必须设置为 “contig-group-size: 0”</span></span><br><span class="line"><span class="comment"># gatk-variantfiltration: 默认参数： SNP: &quot;QD &lt; 2.0 || FS &gt; 60.0 || MQ &lt; 40.0 || MQRankSum &lt; -12.5 || ReadPosRankSum &lt; -8.0&quot;, INDEL: &quot;QD &lt; 2.0 || FS &gt; 200.0 || ReadPosRankSum &lt; -20.0&quot;</span></span><br><span class="line">samples=<span class="variable">$PWD</span>/samples.tsv</span><br><span class="line">genome=/cluster/home/baishenglong/database/Triticum_aestivum/CS/v2.1/part_genome/wheat_CSv2.genome_part.subA.fa</span><br><span class="line">cat <span class="variable">$script_path</span>/config.yaml | \</span><br><span class="line">  sed <span class="string">&quot;s#samples: \&quot;/path/to/data/samples.tsv\&quot;#samples: \&quot;<span class="variable">$samples</span>\&quot;#g&quot;</span> | \</span><br><span class="line">  sed <span class="string">&quot;s#genome: \&quot;/path/to/data/genome.fa\&quot;#genome: \&quot;<span class="variable">$genome</span>\&quot;#g&quot;</span> | \</span><br><span class="line">  sed <span class="string">&#x27;s#trimming-tool: &quot;trimmomatic&quot;#trimming-tool: &quot;fastp&quot;#g&#x27;</span> | \</span><br><span class="line">  sed <span class="string">&#x27;s#mapping-tool: &quot;bwamem&quot;#mapping-tool: &quot;bwamem2&quot;#g&#x27;</span> | \</span><br><span class="line">  sed <span class="string">&#x27;s#contig-group-size: 0#contig-group-size: 500000000#g&#x27;</span> &gt; config.yaml</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不同物种 contig-group-size 适用值</span></span><br><span class="line"><span class="comment"># 小麦 part 版基因组： 500000000 # 保证每条 chr_part 单独 calling</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># modify $script_path/profiles/slurm/cluster_config.yaml to adapt large genome, 主要修改 CPU数、运行时间和内存限制</span></span><br><span class="line"><span class="comment"># modify $script_path/Snakefile to adapt large genome, 任务CPU 数目与集群配置文件一致</span></span><br><span class="line"><span class="comment"># modify $script_path/Snakefile to adapt large genome, 任务CPU 数目与集群配置文件一致</span></span><br><span class="line"><span class="comment"># modify $script_path/scripts/bwa-mem2-mem.py， 原脚本无法识别转换多线程参数</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># mean conda-prefix SNAKEMAKE_CONDA_PREFIX</span></span><br><span class="line">nohup snakemake --conda-frontend mamba --conda-prefix /cluster/home/baishenglong/.snakemake --snakefile <span class="variable">$script_path</span>/Snakefile --profile <span class="variable">$script_path</span>/profiles/slurm/ --directory ./ &amp;</span><br><span class="line"><span class="comment"># nohup snakemake --conda-frontend mamba --conda-prefix /cluster/home/baishenglong/.snakemake --snakefile $script_path/Snakefile --profile $script_path/profiles/slurm/ --directory ./ all_bams &amp;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h2 id="install"><a href="#install" class="headerlink" title="install"></a>install</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">wget https://github.com/moiexpositoalonsolab/grenepipe/archive/refs/tags/v0.10.0.tar.gz</span><br><span class="line">tar zxvf v0.10.0.tar.gz</span><br><span class="line"><span class="built_in">cd</span> /cluster/home/baishenglong/softwares/grenepipe-0.10.0</span><br><span class="line">mamba env create -f envs/grenepipe.yaml</span><br><span class="line"></span><br><span class="line"><span class="comment"># used software</span></span><br><span class="line"><span class="comment"># trimming-tool: fastp</span></span><br><span class="line"><span class="comment"># mapping-tool: bwamem2</span></span><br><span class="line"><span class="comment"># duplicates-tool: picard</span></span><br><span class="line"><span class="comment"># calling-tool: gatk</span></span><br><span class="line"><span class="comment"># samtools</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># key pipeline</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># trimming-tool: fastp</span></span><br><span class="line"><span class="comment"># mapping-tool: bwamem2</span></span><br><span class="line"><span class="comment"># duplicates-tool: picard</span></span><br><span class="line"><span class="comment"># calling-tool: gatk haplotypecaller</span></span><br><span class="line"><span class="comment"># filter-variants: &quot;gatk-variantfiltration&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># restrict-regions: &quot;&quot;    该字段表示需要保留的 bed 区段，如使用该字段，contig-group-size 必须设置为 “contig-group-size: 0”</span></span><br><span class="line"><span class="comment"># gatk-variantfiltration: 默认参数： SNP: &quot;QD &lt; 2.0 || FS &gt; 60.0 || MQ &lt; 40.0 || MQRankSum &lt; -12.5 || ReadPosRankSum &lt; -8.0&quot;, INDEL: &quot;QD &lt; 2.0 || FS &gt; 200.0 || ReadPosRankSum &lt; -20.0&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="test-run"><a href="#test-run" class="headerlink" title="test run"></a>test run</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /cluster/home/baishenglong/softwares/grenepipe-0.10.0</span><br><span class="line"></span><br><span class="line">conda activate grenepipe</span><br><span class="line">script_path=/cluster/home/baishenglong/softwares/grenepipe-0.10.0</span><br><span class="line"></span><br><span class="line">./prepare.sh </span><br><span class="line"></span><br><span class="line">conda activate grenepipe</span><br><span class="line"><span class="comment"># 安装 wrapper 依赖环境如报错，大多是网络原因，可考虑替换 conda 镜像</span></span><br><span class="line">snakemake --conda-frontend mamba --conda-prefix /cluster/home/baishenglong/.snakemake --profile <span class="variable">$script_path</span>/profiles/slurm/ --directory example</span><br></pre></td></tr></table></figure>
+
+<h2 id="ERROR"><a href="#ERROR" class="headerlink" title="ERROR"></a>ERROR</h2><ul>
+<li>conda 环境安装失败</li>
+</ul>
+<p>通常是网络原因，可通过切换镜像解决。使用原始镜像、清华/科大镜像</p>
+<ul>
+<li><code>bcftools-stats</code>步骤报错</li>
+</ul>
+<p>通常是由于 <code>plot-vcfstats</code> 调用 <code>pdflatex</code> 绘图，而 <code>pdflatex</code> 缺少 <code>multirow.sty</code> 导致。 可通过安装依赖环境解决。 <code>sudo yum install texlive-multirow</code></p>
+]]></content>
+      <categories>
+        <category>生物信息学</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SLURM常用命令</title>
+    <url>/2022/10/05/SLURM-common-use-command-line/</url>
+    <content><![CDATA[<h2 id="任务提交"><a href="#任务提交" class="headerlink" title="任务提交"></a>任务提交</h2><p>快捷提交命令<code>sbatcht &lt;&quot;commond&quot;&gt;</code></p>
+<ul>
+<li>指定任务依赖<ul>
+<li>依赖单个job：<code>--dependency=&quot;afterok:1900100&quot;</code></li>
+<li>依赖多个job：<code>--dependency=&quot;afterok:1900100:1900101&quot;</code></li>
+</ul>
+</li>
+<li>提交任务便捷别名 <code>alias sbatcht=&#39;sbatch -q normal -n 1 --job-name tmp1 -e slurm.err -o slurm.out --wrap &#39;</code></li>
+</ul>
+<h2 id="查看任务状态"><a href="#查看任务状态" class="headerlink" title="查看任务状态"></a>查看任务状态</h2><p><code>scontrol show jobid=xx</code></p>
+<a id="more"></a>
+
+<h2 id="终止任务"><a href="#终止任务" class="headerlink" title="终止任务"></a>终止任务</h2><ul>
+<li>终止单个任务 <code>scancel jobid</code></li>
+</ul>
+<h2 id="提交任务到单一节点"><a href="#提交任务到单一节点" class="headerlink" title="提交任务到单一节点"></a>提交任务到单一节点</h2><p><code>--nodes 1</code></p>
+<h2 id="修改排队任务参数"><a href="#修改排队任务参数" class="headerlink" title="修改排队任务参数"></a>修改排队任务参数</h2><p><code>scontrol update NumCPUs=8 Partition=fat JobId=1249</code> # NumCPUs在同一节点中无法修改<br><code>scontrol update Priority=&lt;number&gt; JobId=xx</code> # Only the Slurm administrator or root can increase job’s priority</p>
+<p>可操控修改参数<a href="https://slurm.schedmd.com/scontrol.html#SECTION_JOBS---SPECIFICATIONS-FOR-UPDATE-COMMAND">列表</a></p>
+]]></content>
+      <categories>
+        <category>linux进阶</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+        <tag>作业管理系统</tag>
+        <tag>SLURM</tag>
       </tags>
   </entry>
 </search>
