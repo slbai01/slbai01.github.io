@@ -289,7 +289,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2022-11-26 15:37:51" itemprop="dateModified" datetime="2022-11-26T15:37:51+08:00">2022-11-26</time>
+        <time title="Modified: 2023-07-06 17:07:22" itemprop="dateModified" datetime="2023-07-06T17:07:22+08:00">2023-07-06</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -316,7 +316,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>535</span>
+      <span>764</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
@@ -343,9 +343,9 @@
 </li>
 <li>提交任务便捷别名 <code>alias sbatcht=&#39;sbatch -q normal -n 1 --job-name tmp1 -e slurm.err -o slurm.out --wrap &#39;</code></li>
 </ul>
-<h2 id="修改排队任务参数"><a href="#修改排队任务参数" class="headerlink" title="修改排队任务参数"></a>修改排队任务参数</h2><p><code>scontrol update NumCPUs=8 Partition=fat JobId=1249</code> # NumCPUs在同一节点中无法修改<br><code>scontrol update Priority=&lt;number&gt; JobId=xx</code> # Only the Slurm administrator or root can increase job’s priority</p>
+<h2 id="修改排队任务参数"><a href="#修改排队任务参数" class="headerlink" title="修改排队任务参数"></a>修改排队任务参数</h2><p><code>sudos control update MinCPUsNode=8 Partition=fat MinMemoryNode=10 JobId=1249</code> # MinMemoryNode 单位是 Mb<br><code>sudo scontrol update Priority=&lt;number&gt; JobId=xx</code> # Only the Slurm administrator or root can increase job’s priority</p>
 <p>可操控修改参数<a target="_blank" rel="noopener" href="https://slurm.schedmd.com/scontrol.html#SECTION_JOBS---SPECIFICATIONS-FOR-UPDATE-COMMAND">列表</a></p>
-<h2 id="恢复节点"><a href="#恢复节点" class="headerlink" title="恢复节点"></a>恢复节点</h2><p><code>scontrol update NodeName=node3 State=RESUME</code></p>
+<h2 id="恢复节点"><a href="#恢复节点" class="headerlink" title="恢复节点"></a>恢复节点</h2><p><code>sudo scontrol update NodeName=node3 State=RESUME</code></p>
 <h2 id="查看任务状态"><a href="#查看任务状态" class="headerlink" title="查看任务状态"></a>查看任务状态</h2><p><code>scontrol show jobid=xx</code></p>
           <!--noindex-->
             <div class="post-button">
@@ -1390,7 +1390,7 @@
 
 <div class="copyright">
   &copy; 2020 – 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="grav"></i>
   </span>

@@ -1149,9 +1149,9 @@
 </li>
 <li>提交任务便捷别名 <code>alias sbatcht=&#39;sbatch -q normal -n 1 --job-name tmp1 -e slurm.err -o slurm.out --wrap &#39;</code></li>
 </ul>
-<h2 id="修改排队任务参数"><a href="#修改排队任务参数" class="headerlink" title="修改排队任务参数"></a>修改排队任务参数</h2><p><code>scontrol update NumCPUs=8 Partition=fat JobId=1249</code> # NumCPUs在同一节点中无法修改<br><code>scontrol update Priority=&lt;number&gt; JobId=xx</code> # Only the Slurm administrator or root can increase job’s priority</p>
+<h2 id="修改排队任务参数"><a href="#修改排队任务参数" class="headerlink" title="修改排队任务参数"></a>修改排队任务参数</h2><p><code>sudos control update MinCPUsNode=8 Partition=fat MinMemoryNode=10 JobId=1249</code> # MinMemoryNode 单位是 Mb<br><code>sudo scontrol update Priority=&lt;number&gt; JobId=xx</code> # Only the Slurm administrator or root can increase job’s priority</p>
 <p>可操控修改参数<a href="https://slurm.schedmd.com/scontrol.html#SECTION_JOBS---SPECIFICATIONS-FOR-UPDATE-COMMAND">列表</a></p>
-<h2 id="恢复节点"><a href="#恢复节点" class="headerlink" title="恢复节点"></a>恢复节点</h2><p><code>scontrol update NodeName=node3 State=RESUME</code></p>
+<h2 id="恢复节点"><a href="#恢复节点" class="headerlink" title="恢复节点"></a>恢复节点</h2><p><code>sudo scontrol update NodeName=node3 State=RESUME</code></p>
 <h2 id="查看任务状态"><a href="#查看任务状态" class="headerlink" title="查看任务状态"></a>查看任务状态</h2><p><code>scontrol show jobid=xx</code></p>
 <a id="more"></a>
 
@@ -1159,6 +1159,9 @@
 <li>终止单个任务 <code>scancel jobid</code></li>
 </ul>
 <h2 id="提交任务到单一节点"><a href="#提交任务到单一节点" class="headerlink" title="提交任务到单一节点"></a>提交任务到单一节点</h2><p><code>--nodes 1</code></p>
+<h2 id="修改节点-任务查看方式"><a href="#修改节点-任务查看方式" class="headerlink" title="修改节点/任务查看方式"></a>修改节点/任务查看方式</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">alias</span> sinfos=<span class="string">&quot;sinfo -N -o \&quot;%.6N %.5P %.5a %.11T %.8m %.8e %.8O %.15C\&quot;&quot;</span></span><br><span class="line"><span class="built_in">alias</span> sqs=<span class="string">&quot;squeue -o \&quot;%.5i %.10u %.2t %.8q %.8P %.10M %.6D %.4C %.7m %.12Q  %.16R   %j\&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>可操控修改参数<a href="https://slurm.schedmd.com/squeue.html">列表</a></p>
 ]]></content>
       <categories>
         <category>linux进阶</category>
