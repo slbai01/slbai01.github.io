@@ -1159,9 +1159,9 @@
 <li>终止单个任务 <code>scancel jobid</code></li>
 </ul>
 <h2 id="提交任务到单一节点"><a href="#提交任务到单一节点" class="headerlink" title="提交任务到单一节点"></a>提交任务到单一节点</h2><p><code>--nodes 1</code></p>
-<h2 id="修改节点-任务查看方式"><a href="#修改节点-任务查看方式" class="headerlink" title="修改节点/任务查看方式"></a>修改节点/任务查看方式</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">alias</span> sinfos=<span class="string">&quot;sinfo -N -o \&quot;%.6N %.5P %.5a %.11T %.8m %.8e %.8O %.15C\&quot;&quot;</span></span><br><span class="line"><span class="built_in">alias</span> sqs=<span class="string">&quot;squeue -o \&quot;%.5i %.10u %.2t %.8q %.8P %.10M %.6D %.4C %.7m %.12Q  %.16R   %j\&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+<h2 id="修改节点-任务查看方式"><a href="#修改节点-任务查看方式" class="headerlink" title="修改节点/任务查看方式"></a>修改节点/任务查看方式</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">alias</span> sinfos=<span class="string">&quot;sinfo -N -o \&quot;%.6N %.5P %.5a %.11T %.8m %.8e %.8O %.15C\&quot;&quot;</span></span><br><span class="line"><span class="built_in">alias</span> sqs=<span class="string">&quot;squeue -o \&quot;%.5i %.10u %.2t %.8q %.8P %.10M %.6D %.4C %.7m %.12Q  %.16R   %j\&quot;&quot;</span></span><br><span class="line"><span class="built_in">alias</span> saccts=<span class="string">&quot;sacct --format=JobID,Partition,AllocCPUS,Elapsed%15,CPUTime%20,ExitCode,ReqMem,User,NodeList,ReqTRES%10,AllocTRES%35,JobName%100&quot;</span></span><br></pre></td></tr></table></figure>
 
-<p>可操控修改参数<a href="https://slurm.schedmd.com/squeue.html">列表</a></p>
+<p>可操控修改参数<a href="https://slurm.schedmd.com/squeue.html">squeue</a>, <a href="https://slurm.schedmd.com/sacct.html">sacct</a></p>
 ]]></content>
       <categories>
         <category>linux进阶</category>
