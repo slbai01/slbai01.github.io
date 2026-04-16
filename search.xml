@@ -1174,7 +1174,7 @@
       </tags>
   </entry>
   <entry>
-    <title></title>
+    <title>VSCode + Remote SSH + Codex 插件配置指南（含 403 / reconnecting 解决方案）</title>
     <url>/2026/04/16/vscode_remote_codex_setup/</url>
     <content><![CDATA[<h1 id="VSCode-Remote-SSH-Codex-插件配置指南（含-403-reconnecting-解决方案）"><a href="#VSCode-Remote-SSH-Codex-插件配置指南（含-403-reconnecting-解决方案）" class="headerlink" title="VSCode + Remote SSH + Codex 插件配置指南（含 403 / reconnecting 解决方案）"></a>VSCode + Remote SSH + Codex 插件配置指南（含 403 / reconnecting 解决方案）</h1><h2 id="一、问题背景"><a href="#一、问题背景" class="headerlink" title="一、问题背景"></a>一、问题背景</h2><p>在使用 VSCode + Remote SSH 进行远程开发时，Codex 插件常见问题包括：</p>
 <ul>
@@ -1238,5 +1238,12 @@
 <p>核心配置：</p>
 <figure class="highlight basic"><table><tr><td class="code"><pre><span class="line"><span class="comment">RemoteForward 17890 127.0.0.1:7897</span></span><br></pre></td></tr></table></figure>
 ]]></content>
+      <categories>
+        <category>AIx</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+        <tag>AIx</tag>
+      </tags>
   </entry>
 </search>
