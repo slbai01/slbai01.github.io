@@ -283,7 +283,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2026-04-16 19:30:30 / Modified: 19:30:44" itemprop="dateCreated datePublished" datetime="2026-04-16T19:30:30+08:00">2026-04-16</time>
+      <time title="Created: 2026-04-16 19:30:30 / Modified: 19:33:30" itemprop="dateCreated datePublished" datetime="2026-04-16T19:30:30+08:00">2026-04-16</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -310,7 +310,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>1k</span>
+      <span>982</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
@@ -328,7 +328,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="VSCode-Remote-SSH-Codex-插件配置指南（含-403-reconnecting-解决方案）"><a href="#VSCode-Remote-SSH-Codex-插件配置指南（含-403-reconnecting-解决方案）" class="headerlink" title="VSCode + Remote SSH + Codex 插件配置指南（含 403 / reconnecting 解决方案）"></a>VSCode + Remote SSH + Codex 插件配置指南（含 403 / reconnecting 解决方案）</h1><h2 id="一、问题背景"><a href="#一、问题背景" class="headerlink" title="一、问题背景"></a>一、问题背景</h2><p>在使用 VSCode + Remote SSH 进行远程开发时，Codex 插件常见问题包括：</p>
+          <h2 id="一、问题背景"><a href="#一、问题背景" class="headerlink" title="一、问题背景"></a>一、问题背景</h2><p>在使用 VSCode + Remote SSH 进行远程开发时，Codex 插件常见问题包括：</p>
 <ul>
 <li>本地 VSCode 可正常登录 Codex</li>
 <li>远端环境：<ul>
@@ -337,59 +337,14 @@
 </ul>
 </li>
 </ul>
-<hr>
-<h2 id="二、问题本质"><a href="#二、问题本质" class="headerlink" title="二、问题本质"></a>二、问题本质</h2><blockquote>
-<p>Codex 插件实际运行在远端服务器，而非本地环境</p>
-</blockquote>
-<p>因此会产生两个核心问题：</p>
-<ol>
-<li>登录态仅存在于本地，不在远端</li>
-<li>远端服务器无法访问 OpenAI（网络受限）</li>
-</ol>
-<hr>
-<h2 id="三、总体解决思路"><a href="#三、总体解决思路" class="headerlink" title="三、总体解决思路"></a>三、总体解决思路</h2><p>1）同步登录态（auth.json）<br>2）打通网络链路（SSH 反向代理）</p>
-<hr>
-<h2 id="四、Step-1：同步-auth-json（解决-403）"><a href="#四、Step-1：同步-auth-json（解决-403）" class="headerlink" title="四、Step 1：同步 auth.json（解决 403）"></a>四、Step 1：同步 auth.json（解决 403）</h2><h3 id="本地检查"><a href="#本地检查" class="headerlink" title="本地检查"></a>本地检查</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls ~/.codex/auth.json</span><br></pre></td></tr></table></figure>
-
-<h3 id="远端创建目录"><a href="#远端创建目录" class="headerlink" title="远端创建目录"></a>远端创建目录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p ~/.codex</span><br><span class="line">chmod 700 ~/.codex</span><br></pre></td></tr></table></figure>
-
-<h3 id="复制文件"><a href="#复制文件" class="headerlink" title="复制文件"></a>复制文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp -P 22 ~/.codex/auth.json user@host:~/.codex/auth.json</span><br></pre></td></tr></table></figure>
-
-<h3 id="设置权限"><a href="#设置权限" class="headerlink" title="设置权限"></a>设置权限</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 600 ~/.codex/auth.json</span><br></pre></td></tr></table></figure>
-
-<h3 id="刷新-VSCode"><a href="#刷新-VSCode" class="headerlink" title="刷新 VSCode"></a>刷新 VSCode</h3><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Developer:</span> Reload Window</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="五、Step-2：打通网络（解决-reconnecting）"><a href="#五、Step-2：打通网络（解决-reconnecting）" class="headerlink" title="五、Step 2：打通网络（解决 reconnecting）"></a>五、Step 2：打通网络（解决 reconnecting）</h2><h3 id="本地代理（示例）"><a href="#本地代理（示例）" class="headerlink" title="本地代理（示例）"></a>本地代理（示例）</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">HTTP</span>: <span class="number">127.0.0.1:7897</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="六、SSH-配置（关键）"><a href="#六、SSH-配置（关键）" class="headerlink" title="六、SSH 配置（关键）"></a>六、SSH 配置（关键）</h2><p>编辑：</p>
-<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~<span class="regexp">/.ssh/</span>config</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Host myserver</span><br><span class="line">    HostName xxx</span><br><span class="line">    User xxx</span><br><span class="line">    Port 22</span><br><span class="line">    RemoteForward 17890 127.0.0.1:7897</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="七、重新连接"><a href="#七、重新连接" class="headerlink" title="七、重新连接"></a>七、重新连接</h2><p>必须断开并重新连接 Remote SSH</p>
-<hr>
-<h2 id="八、远端测试"><a href="#八、远端测试" class="headerlink" title="八、远端测试"></a>八、远端测试</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -I -x http://127.0.0.1:17890 https://chat.openai.com</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="九、VSCode-代理"><a href="#九、VSCode-代理" class="headerlink" title="九、VSCode 代理"></a>九、VSCode 代理</h2><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;http.proxy&quot;</span>: <span class="string">&quot;http://127.0.0.1:17890&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;http.proxyStrictSSL&quot;</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="十、链路示意"><a href="#十、链路示意" class="headerlink" title="十、链路示意"></a>十、链路示意</h2><p>远端插件 → 127.0.0.1:17890 → SSH → 本地 127.0.0.1:7897 → OpenAI</p>
-<hr>
-<h2 id="十一、常见问题"><a href="#十一、常见问题" class="headerlink" title="十一、常见问题"></a>十一、常见问题</h2><ul>
-<li>端口写错（7890 vs 7897）</li>
-<li>未重新连接 SSH</li>
-<li>RemoteForward 未生效</li>
-<li>本地代理不可用</li>
-</ul>
-<hr>
-<h2 id="十二、总结"><a href="#十二、总结" class="headerlink" title="十二、总结"></a>十二、总结</h2><p>403 → auth.json<br>reconnecting → 网络链路</p>
-<p>核心配置：</p>
-<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">RemoteForward 17890 127.0.0.1:7897</span></span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2026/04/16/vscode_remote_codex_setup/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
